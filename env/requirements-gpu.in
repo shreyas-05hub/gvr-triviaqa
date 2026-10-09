@@ -1,0 +1,3 @@
+-r requirements-core.in
+bitsandbytes==0.50.2
+pyserini==1.6.0

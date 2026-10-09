@@ -1,0 +1,817 @@
+{
+  "_public_redacted_copy": {
+    "note": "Redacted public copy of configs/freeze_manifest.json: local absolute paths replaced by repo-relative paths or <HF_HOME>; quoted development examples replaced by '[dev example redacted]'. Hashes are unchanged and refer to the private originals where those files are not released.",
+    "private_original_sha256": "927e81508f5a273c8dc70846523f82c4a1851e81e6169d99e67317d70cdc647a"
+  },
+  "test_unlocked": true,
+  "pilot_ids_sha256": "350c0c0f48d8cb0ba66ac72d894c261270abb4c546d3e0cb2f2d8a14565e7f16",
+  "calib_ids_sha256": "4b9645dec7baa8654027f1bfc117a463b21bbc0290d7f40fd8a5294248740013",
+  "u_decision_rule": {
+    "sha256": "b9d6e578222a182ff1ab3828d3d44254a19e7af66387ff729a2ed00e0ff9fdd4",
+    "recorded_at_utc": "2026-10-05T18:45:31.460628+00:00",
+    "recorded_before_results_reviewed": true,
+    "source": "configs/config.yaml#u_decision_rule",
+    "evaluated_at_utc": "2026-10-06T14:59:00.475519+00:00",
+    "case": 1,
+    "evidence": "runs/diag/rescore_diag.json",
+    "u_definition": "generate-path (unchanged)"
+  },
+  "judge_decision_rule": {
+    "sha256": "2c03aa8a624b73143329cad19868330763e588a584c182563969192fa6736394",
+    "recorded_at_utc": "2026-10-06T16:02:40.718597+00:00",
+    "recorded_before_labels_submitted": true,
+    "blind_csv_sha256": "5316c6a44242c464045bf140f45dfc6bdc68c85de9b48bbecbbf93ec8acd9022",
+    "verdicts_sha256": "2136d915ca22cf53d845c4b89a9a18d2731b5e623ae0afa5d1d891a660c39e0e",
+    "source": "configs/config.yaml#judge_decision_rule"
+  },
+  "judge_rule_v2": {
+    "sha256": "8823ad4c638c2a60c529f9a2b8999b3e1ccf6e04dc79e09590f89de871d3a1aa",
+    "recorded_at_utc": "2026-10-06T16:59:29.456482+00:00",
+    "recorded_before_new_labels_or_judge_runs": true,
+    "source": "configs/config.yaml#judge_rule_v2",
+    "status": "JUDGE_REJECTED_FALLBACK_EM",
+    "fallback_recorded_at_utc": "2026-10-07T16:43:33.193348+00:00",
+    "reason": "candidate A failed all criteria; candidate B declined by PI before any B run",
+    "judge_decision_v2_sha256": "79fb43d8767ade82569c8d5a4baa212fae967ddd4bb5d9ad874a819d8fd6af7c"
+  },
+  "judgedev_ids_sha256": "bfe5c46440183ea8ee5c6765b5654fdc100a1b308bad708fa9dc8a3cf32b9a61",
+  "judge_v2_prompt": {
+    "file": "prompts/judge_v2.txt",
+    "sha256": "e0d1b2603c2e0d9ed0c2227c70d818581a71563330e7fe3111bc99054eeceaa5",
+    "status": "frozen-for-judge-dev-validation",
+    "frozen_at_utc": "2026-10-06T17:02:08.646679+00:00",
+    "approved_by_user": true,
+    "frozen_before_push": true
+  },
+  "judgedev_blind": {
+    "blind_csv": "reports/judge_handlabel_blind_judgedev.csv",
+    "blind_csv_sha256": "a37e8b50df65bed9a355f1efc61b43e7a29ad937ecdf8dc55e1570de1f027480",
+    "blind_key": "runs/judgedev-01/blind_key.json",
+    "blind_key_sha256": "af1af10ed2bab13fd717cdb2ea9aaf85854f1e48d1715df44cbfe741463de7f3",
+    "calls_sha256": "26a152bebe1187f43152336201f05d6da8505866ea85251b51aa0bfdb8a2ddfa",
+    "dataset_version": 15
+  },
+  "judgedev_labels": {
+    "primary": {
+      "file": "reports/judge_handlabel_blind_judgedev_LABELED.csv",
+      "sha256": "5b911ae0f40833b2a93f82f4dabf85aa3d0cc387d59f5d3427edbf06b61f1880",
+      "label_counts": {
+        "CORRECT": 52,
+        "INCORRECT": 136,
+        "UNSURE": 2
+      }
+    },
+    "original": {
+      "file": "reports/judge_handlabel_blind_judgedev_LABELED_original.csv",
+      "sha256": "f05aaa353d432067755827f9044942ac1b3275fcde154b03bc2b5b7e74f8dd35",
+      "label_counts": {
+        "CORRECT": 49,
+        "INCORRECT": 139,
+        "UNSURE": 2
+      },
+      "source_note": "recovered byte-identical from ~/.local/share/Trash (originally ~/Downloads), sha verified"
+    },
+    "provenance": "human labels by Shreyas (original sha f05aaa35...), followed by an AI-assisted rule-consistency review before any judge run, which changed 3 labels INCORRECT->CORRECT: r134, r174 ([dev example redacted]; consistency with r008), r154 ([dev example redacted]; extra correct detail rule).",
+    "label_diff_original_to_primary": {
+      "r134": "INCORRECT->CORRECT",
+      "r154": "INCORRECT->CORRECT",
+      "r174": "INCORRECT->CORRECT"
+    },
+    "decision_uses": "primary (5b911ae0...); sensitivity check against original (f05aaa35...) reported",
+    "validated_against_blind_sha256": "a37e8b50df65bed9a355f1efc61b43e7a29ad937ecdf8dc55e1570de1f027480",
+    "validation": "190 rows, row_ids match, labels in {CORRECT, INCORRECT, UNSURE}, non-label cells identical (parsed) to blind CSV",
+    "recorded_at_utc": "2026-10-06T18:32:44.674993+00:00",
+    "recorded_before_any_judge_run_on_judgedev": true,
+    "decision_precommitment": {
+      "text": "Acceptance decision under judge_rule_v2 uses the final labels (5b911ae0...). Results against the original labels (f05aaa35...) are reported as a sensitivity check only and cannot change the decision; if the two disagree on pass/fail, flag it prominently in the report.",
+      "sha256": "fe1ae2a41ce11e9a2484cea5046b2969ca7f133c8330e6710b10a4cd84ec69b7",
+      "recorded_at_utc": "2026-10-07T16:39:29.630163+00:00",
+      "recorded_before_results_reviewed": true
+    },
+    "v3": {
+      "file": "reports/judge_handlabel_blind_judgedev_LABELED_v3.csv",
+      "sha256": "785c731ff669ee5bba7ef6d1db10789b968dcf969aa15d26951ba627ee5c4f53",
+      "previous_sha256": "5b911ae0f40833b2a93f82f4dabf85aa3d0cc387d59f5d3427edbf06b61f1880",
+      "change": {
+        "r035": "CORRECT->INCORRECT (bt_246, E1)"
+      },
+      "reason": "prediction repeats the question's nickname; labelling slip found in EM-FN diagnostic",
+      "decided_by": "PI",
+      "label_counts": {
+        "INCORRECT": 137,
+        "CORRECT": 51,
+        "UNSURE": 2
+      },
+      "recorded_at_utc": "2026-10-07T16:59:45.117328+00:00",
+      "used_for": "em_audit_dev v2 onward; judge_decision_v2 stays as recorded (computed on 5b911ae0)"
+    },
+    "current": "v3",
+    "provenance_current": "SEE provenance_corrections PC8 (original labels AI-assisted)"
+  },
+  "em_validity_plan": {
+    "sha256": "ab2c7b73b2444978b2e1aaeeb542475ef6eb3893ba7163edabeefb09ed980532",
+    "recorded_at_utc": "2026-10-07T16:43:33.193348+00:00",
+    "recorded_before_any_calibration_run": true,
+    "source": "configs/config.yaml#em_validity_plan"
+  },
+  "format_compliance_rule": {
+    "sha256": "48fde62988a8e735fd8a2e437dbe9568fa57a6c19b566325a34d440a3987965c",
+    "version": 2,
+    "recorded_at_utc": "2026-10-07T17:05:18.638310+00:00",
+    "supersedes_sha256": "5b7e413bec8840e8060e9b368e6fa9c525506fcd336fb9a505b68639418556dc",
+    "recorded_before_any_format_check_result_viewed": true,
+    "evidence_no_results_viewed": "no kaggle/output/format_check-*, no runs/pilot-02-v2, no runs/format_compliance_v1_v2.json locally at amendment time; push log contained only RUNNING status lines",
+    "reason": "with n=60 per arm, <=1% means zero items, stricter than intended",
+    "status": "PASSED",
+    "evaluated_at_utc": "2026-10-07T17:24:14.681230+00:00",
+    "result_sha256": "e5e5093421c2903b57c95570e67864027627e20d826e77a25ba0e2b0be7328e0",
+    "v2_run": "pilot-02-v2",
+    "dataset_version": 17
+  },
+  "prompts_v2": {
+    "status": "FROZEN (see frozen_prompts)",
+    "files": {
+      "prompts/user_qa_v2.txt": "1b40dc6a403320fe01b73ccae9e42adb53c82dfeb98cd8152cb3ae70cb10f379",
+      "prompts/user_rag_v2.txt": "02c55a2fc52d2fd2a940aca218d8fbce060cb44608f0044388a8f8f79fb08535",
+      "prompts/user_cove_revise_v2.txt": "ca2636fc1d6f9aaa37e8a42b13683fb3f4eff41d359560a1979a23c00a7bb7fd"
+    },
+    "recorded_at_utc": "2026-10-07T16:56:08.486537+00:00"
+  },
+  "parser": {
+    "version": "1.1",
+    "change": "keep closing ) or ] that balances an opening bracket",
+    "recorded_at_utc": "2026-10-07T16:56:08.486537+00:00"
+  },
+  "em_gold_set": {
+    "definition": "official TriviaQA: NormalizedAliases + HumanAnswers, normalize_answer(pred) == normalize_answer(gt)",
+    "spec_correction": "Stage 7 intended official EM; 7/87,622 train items differ, 0/478 dev EM changes",
+    "evidence": [
+      "runs/em_official_check_before_switch.json",
+      "runs/em_official_check_after_switch.json"
+    ],
+    "official_source_sha256": {
+      "triviaqa_evaluation_py": "51785a3bc2e0 (prefix)",
+      "dataset_utils_py": "0965b863e29c (prefix)"
+    },
+    "recorded_at_utc": "2026-10-07T16:59:30.804417+00:00"
+  },
+  "format_compliance_rule_v1_superseded": {
+    "sha256": "5b7e413bec8840e8060e9b368e6fa9c525506fcd336fb9a505b68639418556dc",
+    "recorded_at_utc": "2026-10-07T16:56:08.486537+00:00",
+    "recorded_before_v2_run": true,
+    "status": "SUPERSEDED",
+    "superseded_at_utc": "2026-10-07T17:05:18.638310+00:00"
+  },
+  "frozen_prompts": {
+    "status": "FROZEN",
+    "frozen_at_utc": "2026-10-07T17:27:06.242373+00:00",
+    "approved_by": "PI",
+    "prompts": {
+      "system_qa": {
+        "file": "prompts/system_qa_v1.txt",
+        "sha256": "890788af6ef9c7d3f83466f64f7c81f96bc4a23d236f663c6c44ee725d01ee46",
+        "status": "FROZEN"
+      },
+      "user_qa": {
+        "file": "prompts/user_qa_v2.txt",
+        "sha256": "1b40dc6a403320fe01b73ccae9e42adb53c82dfeb98cd8152cb3ae70cb10f379",
+        "status": "FROZEN"
+      },
+      "system_rag": {
+        "file": "prompts/system_rag_v1.txt",
+        "sha256": "2ead768ebc16b5c2baa06e6d7d33377ea674aa5572bb1231d34dff426462ccb6",
+        "status": "FROZEN"
+      },
+      "user_rag": {
+        "file": "prompts/user_rag_v2.txt",
+        "sha256": "02c55a2fc52d2fd2a940aca218d8fbce060cb44608f0044388a8f8f79fb08535",
+        "status": "FROZEN"
+      },
+      "passage": {
+        "file": "prompts/passage_v1.txt",
+        "sha256": "551d4fe0a4836504514da3dfae6e2cda8fdbb73b14dd5d5d6c5b7e4e3a862991",
+        "status": "FROZEN"
+      },
+      "system_cove_plan": {
+        "file": "prompts/system_cove_plan_v1.txt",
+        "sha256": "d8b3eb6e2c1114980b9b1402a4a6b9dd80caec795fa2a41851641421649190c3",
+        "status": "FROZEN"
+      },
+      "user_cove_plan": {
+        "file": "prompts/user_cove_plan_v1.txt",
+        "sha256": "69cfdccb65888c3774247160c0ece34e6666d4a35c99d8195b07946d9223e975",
+        "status": "FROZEN"
+      },
+      "user_cove_revise": {
+        "file": "prompts/user_cove_revise_v2.txt",
+        "sha256": "ca2636fc1d6f9aaa37e8a42b13683fb3f4eff41d359560a1979a23c00a7bb7fd",
+        "status": "FROZEN"
+      }
+    },
+    "note": "v2 format line; format check passed (e5e50934...); effect on EM not evaluated, by design.",
+    "chat_template": "Qwen2.5-7B-Instruct tokenizer chat template, pinned by model revision a09a35458c702b33eeacc393d103063234e8bc28 (not a prompt file)",
+    "appendix_only_not_frozen_for_generation": {
+      "judge": "prompts/judge_v1.txt",
+      "judge_v2": "prompts/judge_v2.txt (frozen-for-judge-dev-validation record kept)"
+    },
+    "guard": "gvr.prompts.assert_frozen(): runs abort if any active generation prompt hash != frozen hash"
+  },
+  "calibration": {
+    "run_id": "calib-01",
+    "calls_sha256": "2e382011814e004c6e6ac7759760dbeb9a69709afa28b0734393e6e769cd0b88",
+    "run_meta_sha256": "373743224ad5b9630f6a436dc1c618132eff27bce08ff5db9700a28a23a88579",
+    "summary_sha256": "623d1eeff6ce855b8a79d77c6456b7228c0d569897a23d23d165c78aa99d1ead",
+    "dataset_version": 18,
+    "kernel_version": 17,
+    "arms": [
+      "E0"
+    ],
+    "prompts": "frozen_prompts",
+    "recorded_at_utc": "2026-10-07T17:40:31.816517+00:00"
+  },
+  "gate": {
+    "file": "configs/gate.json",
+    "sha256": "07b71e0fd3e192bae4037d3681442654110e0ef8f4b8110233a7630cbcd36c62",
+    "status": "FINAL",
+    "tau": 0.2683870403561741,
+    "quantile": 0.6,
+    "quantile_method": "higher",
+    "comparison": "strict_gt",
+    "fitted_on": "calib-01 E0 valid outputs",
+    "provisional_archived": {
+      "file": "configs/gate_provisional_pilot.json",
+      "sha256": "e5748f2ad3291d82ad6b0a6dd394f32474b3de79ff83003d18e514a2a7b90d8e",
+      "status": "PROVISIONAL - DISCARDED"
+    },
+    "recorded_at_utc": "2026-10-07T17:40:31.816517+00:00"
+  },
+  "calibration_runs_policy_sha256": "47ab454485d1ff576bd50c4c0a29d2a394523599412c526c3715de31fe5e2ba0",
+  "test_id_sampling": {
+    "authorized": true,
+    "consumed": true,
+    "approved_by": "PI (N=3000 approval, 2026-10-07)",
+    "authorized_at_utc": "2026-10-07T17:45:39.638846+00:00",
+    "scope": "read ONLY question_id column of validation; test_unlocked stays false",
+    "n_pool": 11313,
+    "n_drawn": 3000,
+    "columns_read": [
+      "question_id"
+    ],
+    "file": "unfiltered.nocontext/validation-00000-of-00001.parquet"
+  },
+  "test_ids_sha256": "a792e0d726466f73ddcb4e9b629fbb6bd3087161330cf80fdfd31f7c724ce359",
+  "test_ids": {
+    "file": "data/test_ids.json",
+    "sha256": "a792e0d726466f73ddcb4e9b629fbb6bd3087161330cf80fdfd31f7c724ce359",
+    "n": 3000,
+    "seed": 20261003,
+    "source": "validation (unfiltered.nocontext @ 0f7faf33)",
+    "order": "draw order of numpy Generator(PCG64(20261003)).choice(sorted(question_ids), 3000, replace=False) = fixed run order",
+    "chunks": {
+      "c1": [
+        0,
+        1000
+      ],
+      "c2": [
+        1000,
+        2000
+      ],
+      "c3": [
+        2000,
+        3000
+      ]
+    },
+    "recorded_at_utc": "2026-10-07T17:45:39.638846+00:00"
+  },
+  "test_execution_rule": {
+    "sha256": "948908fd51f5591ec8b498ef7dadd604ed24b72730b102d2707a201f9202f491",
+    "recorded_at_utc": "2026-10-07T17:47:23.568495+00:00",
+    "recorded_before_any_test_run": true
+  },
+  "validation_local_cache": {
+    "files": [
+      {
+        "path": "<HF_HOME>/hub/datasets--mandarjoshi--trivia_qa/snapshots/0f7faf33a3908546c6fd5b73a660e0f8ff173c2f/unfiltered.nocontext/validation-00000-of-00001.parquet",
+        "resolves_to": "<HF_HOME>/hub/blobs/a4/a4589b645b2b4d699b1510cf90d69b0a9660d0445697dd0259f086c2d7a511bb",
+        "size_bytes": 4390956
+      }
+    ],
+    "note": "downloaded 2026-10-07 only to read the question_id column for the one-shot test-ID draw; must not be opened/read until test_completeness passes",
+    "guard": "gvr.data._read refuses non-train question reads unless GVR_SESSION=kaggle-runner (set only by the Kaggle runner) or test_completeness.passed; gvr.scoring.gold.load_gold refuses non-train gold until test_completeness.passed",
+    "recorded_at_utc": "2026-10-07T17:55:37.555493+00:00",
+    "method": "os.stat only (not opened, not hashed)"
+  },
+  "literature_notes": {
+    "file": "docs/literature_notes.md",
+    "sha256": "27f8d9e660bc1a1189e88e34395f048994774d1994262a33d2df131d184365e3",
+    "entries": [
+      "2607.25600 Beyond Self-Knowledge (Sah et al.) - PI to verify full text"
+    ],
+    "recorded_at_utc": "2026-10-07T17:55:37.555493+00:00"
+  },
+  "test_lock": {
+    "status": "LOCKED",
+    "locked_at_utc": "2026-10-07T17:57:26.708981+00:00",
+    "approved_by": "PI (unlock for chunk c1)",
+    "prompt_sha256": {
+      "system_qa": "890788af6ef9c7d3f83466f64f7c81f96bc4a23d236f663c6c44ee725d01ee46",
+      "user_qa": "1b40dc6a403320fe01b73ccae9e42adb53c82dfeb98cd8152cb3ae70cb10f379",
+      "system_rag": "2ead768ebc16b5c2baa06e6d7d33377ea674aa5572bb1231d34dff426462ccb6",
+      "user_rag": "02c55a2fc52d2fd2a940aca218d8fbce060cb44608f0044388a8f8f79fb08535",
+      "passage": "551d4fe0a4836504514da3dfae6e2cda8fdbb73b14dd5d5d6c5b7e4e3a862991",
+      "system_cove_plan": "d8b3eb6e2c1114980b9b1402a4a6b9dd80caec795fa2a41851641421649190c3",
+      "user_cove_plan": "69cfdccb65888c3774247160c0ece34e6666d4a35c99d8195b07946d9223e975",
+      "user_cove_revise": "ca2636fc1d6f9aaa37e8a42b13683fb3f4eff41d359560a1979a23c00a7bb7fd"
+    },
+    "gate_sha256": "07b71e0fd3e192bae4037d3681442654110e0ef8f4b8110233a7630cbcd36c62",
+    "config_sha256": "35f1809664007ba5bb8b4f68b27da4060405b6679535acec228919ddf332291f",
+    "test_ids_sha256": "a792e0d726466f73ddcb4e9b629fbb6bd3087161330cf80fdfd31f7c724ce359",
+    "model_revision": "a09a35458c702b33eeacc393d103063234e8bc28",
+    "model_id": "Qwen/Qwen2.5-7B-Instruct",
+    "precision": "nf4-dq-fp16",
+    "test_execution_rule_sha256": "948908fd51f5591ec8b498ef7dadd604ed24b72730b102d2707a201f9202f491"
+  },
+  "test_chunk_approvals": [
+    {
+      "chunk": "c1",
+      "approved_at_utc": "2026-10-07T17:57:26.708981+00:00",
+      "approved_by": "PI"
+    },
+    {
+      "chunk": "c2",
+      "approved_at_utc": "2026-10-08T02:31:11.753115+00:00",
+      "approved_by": "PI"
+    },
+    {
+      "chunk": "c3",
+      "approved_at_utc": "2026-10-08T15:20:29.677730+00:00",
+      "approved_by": "PI"
+    }
+  ],
+  "test_unlock_log": [
+    {
+      "at_utc": "2026-10-07T17:57:26.708981+00:00",
+      "by": "PI",
+      "scope": "chunk c1 approved; c2/c3 require separate approval"
+    },
+    {
+      "at_utc": "2026-10-08T02:31:11.753115+00:00",
+      "by": "PI",
+      "scope": "chunk c2 approved; c3 not approved"
+    },
+    {
+      "at_utc": "2026-10-08T15:20:29.677730+00:00",
+      "by": "PI",
+      "scope": "chunk c3 approved"
+    }
+  ],
+  "analysis": {
+    "status": "ANALYSIS_FROZEN",
+    "script": "scripts/analyze_main.py",
+    "sha256": "629a7a66b4b632d32929f4ae3ed70fd4ff3dc43435a4436184b5b52358981b1e",
+    "dependency_sha256": {
+      "src/gvr/derive.py": "7d8668035dd580dedc0aba85195f7c271d4c3634939f9d69d191a5bd4a40a378",
+      "src/gvr/gate.py": "d31a12f0bde89aabcb7ff3cfef42df3c4a10c49ace5d5064a0e8b99775a908b1",
+      "src/gvr/random_gate.py": "ffc11a4f2de839c2a8f3b41de1284698f80f4a5279900d58ce57d68fc5b83f9a",
+      "src/gvr/test_runner.py": "b6f703363509d7bfd78f1d9ced828215189a97024b42e689e11d93ca67c5f384",
+      "src/gvr/data.py": "48885ae6e8eab309737e5c7afc950dda41a6182bcc13eba81dad9d25f639dbc0",
+      "src/gvr/parsing.py": "9df8da0b69f06f7847a8cb8b89503db5f2205d091f88a6547f1c986e0cb0974a",
+      "src/gvr/scoring/gold.py": "4fe9d1e1fd7cf295f30467f59f02b419521ef9b0544d9736414663bf2818bbba",
+      "src/gvr/scoring/metrics.py": "8436195a66238f556c3d8f1919a7872e628930868819ae4be12d9ac1c29c9872",
+      "src/gvr/scoring/normalize.py": "e7bb8ed76c77c37439134b161cce5a14213d9c07dff479f973d36dedc3ba8830",
+      "src/gvr/config.py": "c881a6b121764178a4cfda6b2a57cdf662d5c78b4ad7168d02c0f26febdd487c",
+      "src/gvr/calllog.py": "f9afa06603015b08ab394efcaeb873b6ed493aa6934952ff71776567ae96b98b",
+      "scripts/_common.py": "560b3643cc76b7acd98cdbc5596077ee06b69771c732388fcb1e49f809a65d43"
+    },
+    "frozen_at_utc": "2026-10-08T02:44:36.167166+00:00",
+    "frozen_before_c3_approval": true,
+    "fixed_constants": {
+      "bootstrap_B": 10000,
+      "bootstrap_seed": 20261006,
+      "random_gate_seeds": "0..999",
+      "em_audit_seed": 20261005,
+      "em_audit_n_per_arm": 50
+    },
+    "dry_runs": [
+      "runs/analysis_dryrun/pilot02v2 (dev, NOT A RESULT)",
+      "runs/analysis_dryrun/multi_pilot01_judgedev01 (dev, NOT A RESULT)"
+    ],
+    "test_invocation": "scripts/analyze_main.py --runs test-c1 test-c2 test-c3 --split validation --out-dir runs/analysis_main",
+    "note": "test gold reachable only after test_completeness passes (load_gold + _read guards)"
+  },
+  "test_completeness": {
+    "passed": true,
+    "per_chunk": {
+      "c1": {
+        "units_expected": 3000,
+        "units_done": 3000,
+        "extra_units": 0,
+        "n_effective_calls": 7986
+      },
+      "c2": {
+        "units_expected": 3000,
+        "units_done": 3000,
+        "extra_units": 0,
+        "n_effective_calls": 7980
+      },
+      "c3": {
+        "units_expected": 3000,
+        "units_done": 3000,
+        "extra_units": 0,
+        "n_effective_calls": 7982
+      }
+    },
+    "checked_at_utc": "2026-10-08T17:57:23.123005+00:00"
+  },
+  "analysis_run": {
+    "status": "ANALYSIS_RUN",
+    "run_at_utc": "2026-10-08T18:00:02.249160+00:00",
+    "command": "scripts/analyze_main.py --runs test-c1 test-c2 test-c3 --split validation --out-dir runs/analysis_main",
+    "script_sha256": "629a7a66b4b632d32929f4ae3ed70fd4ff3dc43435a4436184b5b52358981b1e",
+    "gate_sha256": "07b71e0fd3e192bae4037d3681442654110e0ef8f4b8110233a7630cbcd36c62",
+    "outputs_sha256": {
+      "runs/analysis_main/em_audit_blind.csv": "b0a008a332d326a4c6c8ee8c394ad1c45164eb0cb9eda286a96ee47e3784f1a8",
+      "runs/analysis_main/em_audit_key.json": "f428ce773b4995c78b8b66d524fb6559a49216452e4163857fe4154c009b7dc8",
+      "runs/analysis_main/results.json": "432e206d7b4e59233e6ace02d756840fe4cd9b77d582fb33b200af94ab4bb5ea",
+      "runs/analysis_main_stdout.txt": "eb2659ebb168ca8d92b2b98bb673638b1b0cdb377d06ef4b06eb4200b5590bd3",
+      "reports/em_audit_blind_main.csv": "b0a008a332d326a4c6c8ee8c394ad1c45164eb0cb9eda286a96ee47e3784f1a8"
+    },
+    "deviations_post_freeze": [],
+    "note": "frozen script run once, unmodified; no --em-audit-labels"
+  },
+  "em_audit_main_labels": {
+    "file": "reports/em_audit_blind_main_LABELED.csv",
+    "sha256": "9078bfca6e94cc9845bce8a535435807e706331890b31cbf7c2b3faeb3ec2395",
+    "blind_csv_sha256": "b0a008a332d326a4c6c8ee8c394ad1c45164eb0cb9eda286a96ee47e3784f1a8",
+    "label_counts": {
+      "CORRECT": 24,
+      "INCORRECT": 126,
+      "UNSURE": 0
+    },
+    "provenance": "SEE provenance_corrections PC9 (final: option (c)) and PC6 (post-unblinding label change)",
+    "validation": "150 rows, row_ids match, labels in {CORRECT, INCORRECT, UNSURE}, non-label cells identical (parsed) to b0a008a3...",
+    "recorded_at_utc": "2026-10-08T18:08:27.688458+00:00",
+    "recorded_before_key_read": true,
+    "provenance_superseded": {
+      "text": "single annotator, blind; AI-assisted consistency review flagged a092 (+ borderlines a013/a033/a038/a143) before key unblinding; final decisions by PI",
+      "superseded_at_utc": "2026-10-08T18:16:48.273910+00:00",
+      "reason": "PI correction: wording could imply independent human-only annotation"
+    },
+    "annotation_type": "AI-assisted, blinded; not independent human-only"
+  },
+  "analysis_run_item4": {
+    "status": "ANALYSIS_RUN (item 4)",
+    "run_at_utc": "2026-10-08T18:09:10.637579+00:00",
+    "command": "scripts/analyze_main.py --runs test-c1 test-c2 test-c3 --split validation --out-dir runs/analysis_main_item4 --em-audit-labels reports/em_audit_blind_main_LABELED.csv",
+    "script_sha256": "629a7a66b4b632d32929f4ae3ed70fd4ff3dc43435a4436184b5b52358981b1e",
+    "labels_sha256": "9078bfca6e94cc9845bce8a535435807e706331890b31cbf7c2b3faeb3ec2395",
+    "outputs_sha256": {
+      "runs/analysis_main_item4/em_audit_blind.csv": "b0a008a332d326a4c6c8ee8c394ad1c45164eb0cb9eda286a96ee47e3784f1a8",
+      "runs/analysis_main_item4/em_audit_key.json": "f428ce773b4995c78b8b66d524fb6559a49216452e4163857fe4154c009b7dc8",
+      "runs/analysis_main_item4/results.json": "52a897d48677b386285e0b3561d856f86ab3f233760af4361e7c39ae64b8363f",
+      "runs/analysis_main_item4_stdout.txt": "eb2659ebb168ca8d92b2b98bb673638b1b0cdb377d06ef4b06eb4200b5590bd3"
+    },
+    "checks": "regenerated blind CSV == b0a008a3..., key == f428ce77...; main results reproduced exactly",
+    "deviations_post_freeze": []
+  },
+  "post_freeze_additions": [
+    {
+      "name": "adjusted_e2e4",
+      "approved_by": "PI",
+      "recorded_at_utc": "2026-10-08T18:12:34.264291+00:00",
+      "reason": "item 3 specified E2/E4 adjustment; frozen script omitted it",
+      "assumption": "FN rates estimated on all EM=0 outputs per arm, applied to flagged-subset outputs",
+      "script": "scripts/post_freeze_adjusted_e2e4.py",
+      "script_sha256": "1810c423aa490f47459f9ff9e5c405f36e86efd1be944381ed7de3edb806b9ee",
+      "outputs_sha256": {
+        "runs/post_freeze/adjusted_e2e4.json": "d15f44039419bc423f73530c51b2a1217c8e9f6fd3d8c0eef94f5e206c0a9e19",
+        "runs/post_freeze/stdout.txt": "9e52ac4b976e45c2093e69abea751f4f258ecdc31aebe516cdc6c675e9cea141"
+      },
+      "frozen_outputs_modified": false,
+      "classification": "post-freeze addition (not a deviation of frozen outputs)",
+      "status": "SUPERSEDED",
+      "superseded_at_utc": "2026-10-08T18:16:48.273910+00:00",
+      "superseded_by": "audit_adjusted_v2",
+      "superseded_reason": "interval plugged per-arm Wilson FN bounds as fixed simultaneous extremes; ignored item-sampling variance; not a confidence interval; also used the term 'human-adjusted'"
+    },
+    {
+      "name": "audit_adjusted_v2",
+      "approved_by": "PI",
+      "recorded_at_utc": "2026-10-08T18:16:48.273910+00:00",
+      "role": "SECONDARY SENSITIVITY ANALYSIS; frozen EM result is PRIMARY",
+      "metric": "audit-adjusted accuracy (EM sensitivity-adjusted accuracy based on the blinded audit)",
+      "reason": "item 3 specified E2/E4 adjustment; frozen script omitted it; v2 replaces the v1 interval with a joint paired bootstrap",
+      "interval_method": "joint paired bootstrap B=10,000, PCG64(20261008): test items resampled (paired across arms) + each arm's 50 audit labels resampled",
+      "transferability_assumption": "audit FN rates were estimated on the audited EM-failed outputs of each arm, while E2/E4 invoke E1/E3 only on the gated subset; applying those rates to E2/E4 assumes each arm's FN rate is equal on gated and ungated subsets",
+      "em_false_positives": "not estimated (audit covers EM-failed outputs only)",
+      "script": "scripts/post_freeze_adjusted_v2.py",
+      "script_sha256": "73aafe7c73c3b99917ad989d21719b460426f8988ab4c1a7737d674ab823d2cf",
+      "outputs_sha256": {
+        "runs/post_freeze/audit_adjusted_v2.json": "b05b35105c3af645a600c3a4fbef7217279dbdd8daebe3c63ae77c5549d1255e",
+        "runs/post_freeze/audit_adjusted_v2_stdout.txt": "14f4addfef09c8c38fbd85a9e6ada8e950d8743b57f9553ad0b3726ff1ece5ab"
+      },
+      "frozen_outputs_modified": false
+    },
+    {
+      "name": "audit_adjusted_corrected_labels_POST_HOC",
+      "type": "POST-HOC SENSITIVITY ANALYSIS",
+      "approved_by": "PI",
+      "recorded_at_utc": "2026-10-08T18:31:16.737650+00:00",
+      "reason": "post-unblinding label change a092/a143 CORRECT->INCORRECT (provenance_corrections PC6); 9078bfca... remains the audit of record",
+      "labels": {
+        "file": "reports/em_audit_blind_main_LABELED_corrected.csv",
+        "sha256": "dac7400c0fea110e5f7a86012ded72f06d978b92d48ba98b9e3be1aa66ee12a6"
+      },
+      "method": "same v2 two-level bootstrap and seed PCG64(20261008); script generated from post_freeze_adjusted_v2.py by fixed string replacements (labels path/sha, output path, status); equivalence verified: reproduces S2 exactly on the of-record labels",
+      "script": "scripts/post_hoc_corrected_labels.py",
+      "script_sha256": "694883eb0062dfd3d10505851b279b2040f8044c121127cec5ee5143555cebad",
+      "outputs_sha256": {
+        "runs/post_hoc/audit_adjusted_corrected_labels.json": "cc1b42090df483479f662f7650c65c7e215704b76cfeb1df08e5515263f0c245",
+        "runs/post_hoc/stdout.txt": "4c2b5c84e522862148f5ec2cbbdc1accf0fb87baf06627b6f98ff492e1718956"
+      },
+      "of_record_unchanged": {
+        "S1": "432e206d7b4e59233e6ace02d756840fe4cd9b77d582fb33b200af94ab4bb5ea",
+        "S2": "b05b35105c3af645a600c3a4fbef7217279dbdd8daebe3c63ae77c5549d1255e"
+      }
+    }
+  ],
+  "terminology": {
+    "recorded_at_utc": "2026-10-08T18:16:48.273910+00:00",
+    "decided_by": "PI",
+    "rule": "Report 'audit-adjusted accuracy' (or 'EM sensitivity-adjusted accuracy based on the blinded audit') in all analysis and manuscript-facing outputs. The pre-registered em_validity_plan text in config.yaml (locked, sha 35f18096...) says 'human-adjusted accuracy'; it is left unedited as the historical pre-registration and maps to 'audit-adjusted accuracy'. The frozen analyze_main.py output field 'adj_accuracy' maps to the same term.",
+    "field_mapping": {
+      "config.yaml em_validity_plan 'human-adjusted accuracy' (pre-registered text, locked)": "audit-adjusted accuracy",
+      "runs/analysis_main_item4/results.json em_audit.item4.fn[*].adj_accuracy / adj_interval (frozen)": "audit-adjusted accuracy / superseded plug-in interval (not a CI)",
+      "runs/post_freeze/adjusted_e2e4.json 'adjusted' (v1, superseded)": "audit-adjusted accuracy (v1 interval not a CI)",
+      "runs/post_freeze/audit_adjusted_v2.json 'audit_adjusted'": "audit-adjusted accuracy (EM sensitivity-adjusted accuracy based on the blinded audit)"
+    }
+  },
+  "final_results_table": {
+    "script": "scripts/final_results_table.py",
+    "script_sha256": "14fe8b13b1c9aba513480ab2719a919f90a3b75b2d6c306e811c9c1cc0ae487c",
+    "outputs_sha256": {
+      "reports/final_results_table.md": "83ff229e700ab70d950ff5bb201f2546ea7bc2ce276d999714c298cd39aad416",
+      "reports/final_results_table.json": "7944c1f7f2eee1c5de3fe4fa8ddce4237ee008f02b1472d503047aa068b18bfc"
+    },
+    "recorded_at_utc": "2026-10-08T18:31:37.141137+00:00",
+    "traceability": "every cell: source path + sha256 + JSON pointer",
+    "built_from": [
+      "runs/analysis_main/results.json",
+      "runs/post_freeze/audit_adjusted_v2.json",
+      "runs/test-c{1,2,3}/run_meta.jsonl",
+      "runs/post_hoc/audit_adjusted_corrected_labels.json"
+    ],
+    "revision": "adds POST-HOC corrected-label note (S4); main table = audit of record"
+  },
+  "primary_result": {
+    "recorded_at_utc": "2026-10-08T18:19:34.447186+00:00",
+    "status": "PRIMARY (frozen EM result)",
+    "source": "runs/analysis_main/results.json",
+    "source_sha256": "432e206d7b4e59233e6ace02d756840fe4cd9b77d582fb33b200af94ab4bb5ea",
+    "E2_em": 0.452,
+    "E4_em": 0.5816666666666667,
+    "E2_minus_E4": -0.12966666666666665,
+    "bootstrap_ci95": [
+      -0.1433333333333333,
+      -0.11599999999999994
+    ],
+    "mcnemar_exact": {
+      "n10": 55,
+      "n01": 444,
+      "p": 1.2410489541781027e-76
+    },
+    "summary": "E2 45.20%, E4 58.17%, E2-E4 = -12.97 pts, bootstrap 95% CI [-14.33, -11.60], exact McNemar p = 1.24e-76",
+    "secondary": "audit-adjusted accuracy (post_freeze_additions.audit_adjusted_v2) is SECONDARY SENSITIVITY ANALYSIS only"
+  },
+  "provenance_corrections": [
+    {
+      "id": "PC1",
+      "set": "em_audit_main_labels",
+      "at_utc": "2026-10-08T18:16:48.273910+00:00",
+      "original_text": "single annotator, blind; AI-assisted consistency review flagged a092 (+ borderlines a013/a033/a038/a143) before key unblinding; final decisions by PI",
+      "corrected_text": "Blinded audit (arm and key hidden): AI-assisted annotation, not an independent human-only annotation. Rows a092, a013, a033, a038 and a143 were reviewed/corrected before key unblinding. Final labels approved by the PI.",
+      "note": "first correction (applied in place earlier with the original preserved); superseded by PC2"
+    },
+    {
+      "id": "PC2",
+      "set": "em_audit_main_labels",
+      "at_utc": "2026-10-08T18:19:34.447186+00:00",
+      "status": "PENDING PI WORDING",
+      "production_method": "[PI TO FILL: how the 150 main audit labels were produced, e.g. 'AI-assisted labelling reviewed by the PI' or 'PI labels with AI consistency review']",
+      "blinding": "blinded: arm hidden in CSV; key file never accessed before the label hash was recorded (label sha 9078bfca... recorded 2026-10-08T18:08:27Z; key first read by the frozen item-4 run afterwards)",
+      "ai_review": "rows a013, a033, a038, a092, a143 were flagged in an AI consistency review before unblinding",
+      "rows_changed": "[PI TO FILL: which of a013/a033/a038/a092/a143 were changed, and from/to]",
+      "supersedes": "PC1 wording; no statement of independent human-only annotation is made"
+    },
+    {
+      "id": "PC3",
+      "set": "pilot-01 labels (reports/judge_handlabel_blind_pilot-01_LABELED.csv)",
+      "at_utc": "2026-10-08T18:19:34.447186+00:00",
+      "status": "PENDING PI CONFIRMATION",
+      "recorded_so_far": "PI stated 2026-10-06: 'labelled by me, blind to judge verdicts and report accuracy'",
+      "question": "[PI TO CONFIRM: were these labels AI-assisted in any way? If so, record how]"
+    },
+    {
+      "id": "PC4",
+      "set": "judge-dev labels (primary 5b911ae0, v3 785c731f, original f05aaa35)",
+      "at_utc": "2026-10-08T18:19:34.447186+00:00",
+      "status": "PENDING PI CONFIRMATION",
+      "recorded_so_far": "human labels by Shreyas (original sha f05aaa35...), followed by an AI-assisted rule-consistency review before any judge run, which changed 3 labels INCORRECT->CORRECT: r134, r174 ([dev example redacted]; consistency with r008), r154 ([dev example redacted]; extra correct detail rule). | v3: r035 relabelled by PI (labelling slip found in EM-FN diagnostic)",
+      "question": "[PI TO CONFIRM: is 'human labels by Shreyas' accurate for the original f05aaa35 labels, or were they AI-assisted?]"
+    },
+    {
+      "id": "PC5",
+      "resolves": "PC2",
+      "set": "em_audit_main_labels",
+      "at_utc": "2026-10-08T18:30:19.688392+00:00",
+      "terminology": "AI-assisted blind audit",
+      "production_method": "Labels proposed by an AI assistant and reviewed/edited by the PI (AI-assisted blind audit). Before unblinding, an AI consistency review flagged a013/a033/a038/a092/a143; the hashed file 9078bfca... retained the PI's pre-unblinding decisions (a092, a143 = CORRECT). After unblinding, the PI changed a092 and a143 to INCORRECT (a092: answer names a different group; a143: scientific name given where common name asked).",
+      "conflicting_earlier_statement": "PI, previous message (2026-10-08): 'The 150 main EM-audit labels were produced by an AI assistant without row-by-row PI review.' This conflicts with 'reviewed/edited by the PI' above.",
+      "status": "RESOLVED (superseded by PC9: option (c), PI 2026-10-09 00:13 IST)",
+      "audit_of_record": {
+        "file": "reports/em_audit_blind_main_LABELED.csv",
+        "sha256": "9078bfca6e94cc9845bce8a535435807e706331890b31cbf7c2b3faeb3ec2395",
+        "hash_recorded_utc": "2026-10-08T18:08:27.688458+00:00"
+      },
+      "no_claims": "no independent human annotation, no Cohen's kappa, no human-vs-judge agreement",
+      "status_history": [
+        {
+          "status": "RECORDED VERBATIM; PI TO CONFIRM which description of PI review is accurate",
+          "until_utc": "2026-10-09T17:51:03.704151+00:00"
+        }
+      ]
+    },
+    {
+      "id": "PC6",
+      "set": "em_audit_main_labels",
+      "type": "POST-UNBLINDING LABEL CHANGE",
+      "at_utc": "2026-10-08T18:30:19.688392+00:00",
+      "changed_rows": {
+        "a092": "CORRECT -> INCORRECT (answer names a different group)",
+        "a143": "CORRECT -> INCORRECT (scientific name given where common name asked)"
+      },
+      "unchanged_flagged": {
+        "a013": "CORRECT",
+        "a033": "INCORRECT",
+        "a038": "INCORRECT"
+      },
+      "decided": "after the key was read (first logged programmatic key read 2026-10-08T18:08:34Z) and after per-arm audit results were seen (PI statement)",
+      "corrected_file": {
+        "path": "reports/em_audit_blind_main_LABELED_corrected.csv",
+        "sha256": "dac7400c0fea110e5f7a86012ded72f06d978b92d48ba98b9e3be1aa66ee12a6",
+        "fs_birth_mtime_utc": "2026-10-08T18:29:01Z",
+        "fs_ctime_utc": "2026-10-08T18:29:21Z",
+        "fs_note": "filesystem times are supporting evidence only; not cryptographic proof of chronology"
+      },
+      "verification": "differs from 9078bfca... only in a092 and a143 (CORRECT->INCORRECT); non-label cells identical to blind CSV b0a008a3...",
+      "classification": "rule B: POST-HOC; 9078bfca... remains the audit of record; S1 and original S2 (audit_adjusted_v2) unchanged"
+    },
+    {
+      "id": "PC7",
+      "resolves": "PC3",
+      "set": "pilot-01 labels (105 rows)",
+      "at_utc": "2026-10-08T18:30:19.688392+00:00",
+      "statement": "The 105 pilot-01 labels were AI-assisted and were not independent human-only labels.",
+      "source": "PI, 2026-10-08"
+    },
+    {
+      "id": "PC8",
+      "resolves": "PC4",
+      "set": "judge-dev labels (190 rows)",
+      "at_utc": "2026-10-08T18:30:19.688392+00:00",
+      "statement": "The original 190 judge-development labels were AI-assisted and were not independent human-only labels.",
+      "later_changes_recorded_separately": [
+        "pre-judge AI-assisted consistency review: r134, r154, r174 INCORRECT->CORRECT (f05aaa35 -> 5b911ae0)",
+        "PI relabel r035 CORRECT->INCORRECT after EM-FN diagnostic (5b911ae0 -> v3 785c731f)"
+      ],
+      "source": "PI, 2026-10-08"
+    },
+    {
+      "id": "PC9",
+      "resolves": "PC5",
+      "set": "em_audit_main_labels",
+      "at_utc": "2026-10-09T17:51:03.704151+00:00",
+      "status": "FINAL",
+      "decided_by": "PI",
+      "decided_at": "2026-10-09 00:13 IST (2026-10-08T18:43Z)",
+      "option": "(c)",
+      "production_method": "The 150 audit labels were produced by an AI assistant, blind to arm, without row-by-row PI review. An AI consistency review then flagged a013, a033, a038, a092, a143; a092 and a143 were changed CORRECT->INCORRECT after unblinding (post-hoc, see PC6).",
+      "supersedes": {
+        "id": "PC5",
+        "superseded_wording": "Labels proposed by an AI assistant and reviewed/edited by the PI (AI-assisted blind audit). Before unblinding, an AI consistency review flagged a013/a033/a038/a092/a143; the hashed file 9078bfca... retained the PI's pre-unblinding decisions (a092, a143 = CORRECT). After unblinding, the PI changed a092 and a143 to INCORRECT (a092: answer names a different group; a143: scientific name given where common name asked).",
+        "note": "PC5 'reviewed/edited by the PI' wording (option b) is superseded; kept unchanged in PC5 for the record"
+      }
+    }
+  ],
+  "provenance_terminology": {
+    "at_utc": "2026-10-08T18:30:19.688392+00:00",
+    "use": [
+      "AI-assisted blind audit",
+      "AI-labelled audit"
+    ],
+    "avoid": [
+      "blind human annotation",
+      "single human annotator",
+      "independent human annotation"
+    ],
+    "no_claims": [
+      "Cohen's kappa",
+      "human-vs-judge agreement"
+    ],
+    "note": "judge_v1 and judge_rule_v2 'agreement vs human labels' were computed against AI-assisted label sets (PC7, PC8); they are judge-vs-AI-assisted-reference agreement, not human-vs-judge agreement. Field/column names 'human_label(...)' are historical schema names."
+  },
+  "verification_reports": {
+    "recorded_at_utc": "2026-10-09T17:22:48.971714+00:00",
+    "read_only": true,
+    "files": {
+      "reports/verification/e1_fidelity.json": "a3b3d643618878c736dd21b57dc5262526ffc6252d9e1f8d15974b1c3bce237e",
+      "reports/verification/teacher_forced.json": "2dbd5a45c8481ad0f66bd33cefae3a568e0fab298c01555db90fa46e06eb5e29",
+      "scripts/verify_e1_fidelity.py": "66c27658622b9016e8d6613d9610d4dae8ce18c2e5d3819d0d5d6960a3821208",
+      "scripts/trace_manuscript.py": "84834a36e8a7a304dd606c301b66f2837f9af8deebbff2f0e133e4742b1ed6cf",
+      "reports/verification/trace_manuscript_v2.md": "84c7c69cce9bed5b20597f25e8841f00f2720b7087191e1fe2fab341e4656744",
+      "reports/verification/trace_manuscript_v2.json": "d357261a6b8dc0f9a4f9595dac0432544a2d671258981debc97e591bf02ba951",
+      "reports/verification/trace_manuscript_v2_semantic.md": "dea12ea2102bf4fadf2345bf60d3fde5e32700593190611b3bf0ff2649927380",
+      "reports/verification/trace_manuscript_v2_semantic.json": "1c282fee14f97161d8dcb7372fd11e590263ed3ae598afcf35abd0d06d754138",
+      "scripts/trace_manuscript_semantic.py": "13bd420b4f341e8bdc19df8c511707eb872727539f7f0a92348660072aaa8912",
+      "docs/literature_verification.md": "045fea62ad16724915e8cc3bf2a56685d9b360edb845245fba3497ee2f0b5d00",
+      "reports/verification/release_inventory.md": "02b0ad9c44063eb9d1623ddbc588aee44e8dea5eaad58a4d37fbe660d0d08b6e",
+      "reports/verification/release_inventory.json": "a44f33032441dbec0a06963db67f67dec2ba339cd8d7371b7bae5f357a4a17c3",
+      "scripts/release_inventory.py": "f75456ae00a424bd4626bc8dc94474c246ec01d102778df70cb9c9a26759d2fa",
+      "reports/verification/release_staging_inventory.json": "a9c8c3b49b2d318d583b551799040a4d15121ccc2456ab76572f913d048af746",
+      "scripts/build_release_staging.py": "7e188e4e806a2668881d49c75c2f9ecf6194cea281bf384e1c0525cbf2caedd4"
+    },
+    "trace_manuscript_status": "traced: automatic (466 numbers) + semantic addendum",
+    "frozen_unchanged": {
+      "S1": "432e206d7b4e59233e6ace02d756840fe4cd9b77d582fb33b200af94ab4bb5ea",
+      "S2": "b05b35105c3af645a600c3a4fbef7217279dbdd8daebe3c63ae77c5549d1255e",
+      "S4": "cc1b42090df483479f662f7650c65c7e215704b76cfeb1df08e5515263f0c245",
+      "analyze_main": "629a7a66b4b632d32929f4ae3ed70fd4ff3dc43435a4436184b5b52358981b1e",
+      "config": "35f1809664007ba5bb8b4f68b27da4060405b6679535acec228919ddf332291f",
+      "gate": "07b71e0fd3e192bae4037d3681442654110e0ef8f4b8110233a7630cbcd36c62"
+    },
+    "manuscript_v2": {
+      "file": "reports/manuscript_v2.md",
+      "sha256": "b076284cf491b6f86012e2f13f58e0a07b203a2a0890d84af53ade75a1c372da",
+      "traced_at_utc": "2026-10-09T17:48:12.140806+00:00",
+      "manuscript_modified": false,
+      "frozen_artifacts_modified": false
+    },
+    "literature_verification": {
+      "file": "docs/literature_verification.md",
+      "sha256": "045fea62ad16724915e8cc3bf2a56685d9b360edb845245fba3497ee2f0b5d00",
+      "verified_by": "AI assistant (Claude, in the PI's chat session; arXiv abs/HTML, ACL Anthology, NeurIPS proceedings, Springer pages), 2026-10-09, relayed by the PI; not independently re-checked by a human or by Claude Code",
+      "recorded_by": "Claude from PI report; not independently re-checked",
+      "verified": 19,
+      "partial": [],
+      "recorded_at_utc": "2026-10-09T17:51:23.813396+00:00",
+      "verified_by_superseded": "PI (2026-10-09; arXiv abs/HTML, ACL Anthology, NeurIPS proceedings)",
+      "previous_sha256": "7508ceb69c49ee13dc7e3ea326c3e462d2f3d63946dbc18c5a3c15c93604c436",
+      "corrected_at_utc": "2026-10-09T17:52:35.094966+00:00",
+      "history": [
+        {
+          "sha256": "7508ceb69c49ee13dc7e3ea326c3e462d2f3d63946dbc18c5a3c15c93604c436",
+          "until_utc": "2026-10-09T18:08:05.078613+00:00"
+        }
+      ],
+      "verified_relayed_second_check": {
+        "items": [
+          "Holm 1979 6(2):65-70 doi:10.2307/4615733",
+          "Robertson & Zaragoza 2009 3(4):333-389 doi:10.1561/1500000019 (DOI record conflicts: vol 4 iss 1-2 pp 1-174; original front matter used)",
+          "Asai et al. Self-RAG ICLR 2024 (author Zeqiu Wu)",
+          "Chen et al. 2506.09669 ICLR 2026"
+        ],
+        "provenance": "relayed by the PI from a second AI assistant's check of JSTOR, now publishers and ICLR proceedings; not re-checked by Claude Code"
+      }
+    },
+    "release_inventory": {
+      "status": "INVENTORY ONLY - nothing published; full archive private",
+      "recorded_at_utc": "2026-10-09T18:10:02.813931+00:00",
+      "candidate_files": 133,
+      "dataset_derived_flags": [
+        "configs/bm25_smoke_reference.json (passage titles)",
+        "configs/freeze_manifest.json (quoted dev examples; local paths)",
+        "tests/test_parsing.py (dev model outputs)",
+        "scripts/em_official_check.py (one gold alias)"
+      ],
+      "pi_decision": [
+        "data/test_ids.json + hash"
+      ]
+    },
+    "release_staging": {
+      "status": "STAGED - not published",
+      "n_files": 132,
+      "modified": {
+        "configs/freeze_manifest.public.json": "redacted copy of configs/freeze_manifest.json (private original not shipped)",
+        "src/gvr/paths.py": "fallback to configs/freeze_manifest.public.json when the private manifest is absent (staging only)",
+        "tests/test_parsing.py": "3 dev-derived strings replaced by synthetic cases (same bracket/punctuation forms)",
+        "scripts/em_official_check.py": "literal TriviaQA alias replaced by a synthetic annotated alias of the same form",
+        "README.md": "added 'What is and isn't released' section (staging copy only)"
+      },
+      "public_manifest_sha256": "6e6bdf02c2b059d64e93a066891b51305df005cfa107fefc77c0715f81efe4fa",
+      "private_manifest_sha256_at_build": "3f1791b5cdea6ce5946dd0c48d780d9f02d34c8c79321a897148ce93e513c92d",
+      "scan": "0 dataset hits beyond known-benign/kept (bm25_smoke_reference titles kept by PI decision)",
+      "tests": "128 passed, 2 failed (pre-existing state-assumption tests; also fail in private originals)",
+      "recorded_at_utc": "2026-10-09T18:18:59.557689+00:00"
+    }
+  }
+}

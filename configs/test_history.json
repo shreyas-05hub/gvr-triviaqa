@@ -1,0 +1,135 @@
+[
+  {
+    "count": 87,
+    "note": "initial laptop suite (81 CPU + 6 Qwen2.5-0.5B CPU fixture tests)"
+  },
+  {
+    "count": 89,
+    "added": [
+      "tests/test_openai_guard.py::test_guard_blocks_all_openai_use",
+      "tests/test_openai_guard.py::test_placeholder_key_only_in_bm25_command"
+    ],
+    "why": "Pyserini 1.6.0 builds an OpenAI client at import; verify any OpenAI client/encoder use raises and the placeholder key is confined to the BM25 command"
+  },
+  {
+    "count": 96,
+    "added": [
+      "tests/test_bm25_loader.py (7 tests)"
+    ],
+    "why": "shared guarded BM25 loader is the only path to a LuceneSearcher; single BM25 construction site; scripts use the loader; smoke reference consistency; title/order comparison; placeholder key set only during import"
+  },
+  {
+    "count": 98,
+    "added": [
+      "tests/test_determinism_script.py::test_determinism_script",
+      "tests/test_determinism_script.py::test_determinism_never_touches_gold"
+    ],
+    "why": "end-to-end check of scripts/determinism.py on synthetic separate-process runs (E1 via --a1-from, E3 passage-ID comparison, exact |du| and token-id reporting); static check that the determinism script imports no scoring/gold code (no accuracy)"
+  },
+  {
+    "count": 100,
+    "added": [
+      "tests/test_judge_decision.py::test_evaluate_judge_cases_and_counts",
+      "tests/test_judge_decision.py::test_labeled_csv_must_match_blind"
+    ],
+    "why": "pre-registered judge_decision_rule: agreement/case/false-accept/false-reject/EM-agreement with UNSURE excluded; labeled CSV must equal the blind CSV outside the label column. Also: test_analyze_report_script now asserts the repo gate.json is unchanged (it legitimately exists after the pilot) instead of absent."
+  },
+  {
+    "count": 101,
+    "added": [
+      "tests/test_judge_decision.py::test_parse_check_is_parse_only"
+    ],
+    "why": "judge_v2 parse check on pilot rows never reads labels or computes agreement"
+  },
+  {
+    "count": 102,
+    "added": [
+      "tests/test_package.py::test_package_excludes_reports_and_labels"
+    ],
+    "why": "no reports/ path or *_LABELED* file can enter the Kaggle package (after v13/v14 mount incident)"
+  },
+  {
+    "count": 103,
+    "added": [
+      "tests/test_judge_decision.py::test_judgedev_judge_never_reads_labels"
+    ],
+    "why": "candidate-A judge script on judge-dev targets EM=0 rows only and never reads labels"
+  },
+  {
+    "count": 104,
+    "added": [
+      "tests/test_scoring.py::test_label_item_judge_disabled_em_only"
+    ],
+    "why": "judge_rule_v2 fallback: with judge disabled, final = EM and no verdict is used or required"
+  },
+  {
+    "count": 111,
+    "added": [
+      "tests/test_parsing.py::test_balanced_closing_bracket_kept (7 cases)"
+    ],
+    "why": "parser 1.1: keep a closing ) or ] that balances an opening bracket"
+  },
+  {
+    "count": 112,
+    "added": [
+      "tests/test_gold_isolation.py::test_v2_format_line_identical_in_all_answer_turns"
+    ],
+    "why": "v2 format line identical and last before 'Answer:' in QA/RAG/revise turns; plan turn and system prompts unchanged; existing prompt-text tests updated to v2; fixture chat-template test now uses the active prompt"
+  },
+  {
+    "count": 113,
+    "added": [
+      "tests/test_package.py::test_format_compliance_never_touches_gold"
+    ],
+    "why": "format-compliance comparison imports no scoring/gold code and computes no EM"
+  },
+  {
+    "count": 114,
+    "added": [
+      "tests/test_scoring.py::test_ground_truths_official_definition"
+    ],
+    "why": "EM gold set = official TriviaQA (NormalizedAliases + HumanAnswers, normalized at comparison); test_ground_truths updated (Aliases no longer used); v2 identical-placement test now also asserts a single format instruction per answer turn"
+  },
+  {
+    "count": 119,
+    "added": [
+      "tests/test_guard.py::test_ids_only_sampling_requires_authorization"
+    ],
+    "why": "one-shot PI-authorized test-ID draw (question_id column only) refuses when unauthorized or consumed"
+  },
+  {
+    "count": 123,
+    "added": [
+      "tests/test_test_runner.py (4 tests)"
+    ],
+    "why": "chunk runner resume/idempotency (crash mid-unit, supersede, skip done units, E1 uses logged E0, append-only), unit order, test gold locked until completeness, chunk script aborts before downloads on lock/hash mismatch"
+  },
+  {
+    "count": 125,
+    "added": [
+      "tests/test_test_runner.py::test_validation_questions_blocked_outside_kaggle_session"
+    ],
+    "why": "validation question text readable only in a Kaggle runner session or after completeness; calibration-block test updated for per-chunk test_chunk approvals"
+  },
+  {
+    "count": 126,
+    "added": [
+      "tests/test_guard.py::test_real_manifest_state_is_consistent"
+    ],
+    "why": "after c1 attempt-1 abort: guard tests run against a temporary locked manifest (fixture locked_manifest); test_unlocked=true only valid with LOCKED test_lock + approved chunk + matching lock hashes; gold tests accept either lock error; suite verified in both states"
+  },
+  {
+    "count": 130,
+    "added": [
+      "tests/test_analyze_main.py (4 tests)"
+    ],
+    "why": "exact McNemar, Holm, random-gate analytic expectation vs 1000-seed simulation, frozen analysis constants"
+  },
+  {
+    "count": 131,
+    "added": [
+      "tests/test_test_runner.py::test_real_completeness_state_is_consistent"
+    ],
+    "why": "tests assumed pre-completeness state; gold/question lock tests now use a temporary manifest with completeness unpassed; real state must show 9,000/9,000 units (incident runs/incidents/test_state_completeness.json)"
+  }
+]

@@ -1,0 +1,74 @@
+# Stage-0 audit RE-RUN captured by runner (env stage), not the original audit session
+Mon Oct  5 06:21:01 PM UTC 2026
+== python: 3.11.16 (main, Sep  1 2026, 14:18:37) [Clang 22.1.3 ] | executable: /root/gvr_repo/.venv/bin/python
+== os: PRETTY_NAME="Ubuntu 24.04.1 LTS"
+NAME="Ubuntu" | kernel: 6.18.48+
+== nvidia-smi
+Mon Oct  5 18:21:01 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.178.04             Driver Version: 580.178.04     CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  Tesla T4                       Off |   00000000:00:04.0 Off |                    0 |
+| N/A   34C    P8             11W /   70W |       0MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+|   1  Tesla T4                       Off |   00000000:00:05.0 Off |                    0 |
+| N/A   42C    P8             10W /   70W |       0MiB /  15360MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+== gpu query: name, memory.total [MiB], driver_version, compute_cap
+Tesla T4, 15360 MiB, 580.178.04, 7.5
+Tesla T4, 15360 MiB, 580.178.04, 7.5
+== cuda toolkit: Cuda compilation tools, release 12.8, V12.8.93
+Build cuda_12.8.r12.8/compiler.35583870_0
+== cpu: 4 cores | Model name:                              Intel(R) Xeon(R) CPU @ 2.00GHz
+== ram
+total        used        free      shared  buff/cache   available
+Mem:            31Gi       1.2Gi        12Gi       1.2Mi        18Gi        30Gi
+Swap:             0B          0B          0B
+== disk /kaggle/working: free 20.9 GB / total 21.0 GB
+== disk /tmp: free 1141.5 GB / total 8758.4 GB
+== disk /root: free 1141.5 GB / total 8758.4 GB
+== disk /: free 1141.5 GB / total 8758.4 GB
+== disk /root/.cache: free 1141.5 GB / total 8758.4 GB
+== java: openjdk version "21.0.12" 2026-07-21
+OpenJDK Runtime Environment (build 21.0.12+8-1-24.04-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.12+8-1-24.04-Ubuntu, mixed mode, sharing) | JAVA_HOME: /usr/lib/jvm/java-21-openjdk-amd64
+== openjdk-21 apt candidate: openjdk-21-jdk-headless:
+  Installed: 21.0.12+8-1~24.04
+  Candidate: 21.0.12.1+1-1~24.04.4
+== uv: /usr/local/bin/uv
+uv 0.12.9 (x86_64-unknown-linux-gnu) | python3.11: 
+== preinstalled pkgs: 
+== torch 2.14.1+cu130 cuda build 13.0 available True
+   gpu0: Tesla T4 vram=15.64 GB cc=7.5
+   fp16 matmul ok: True
+== NOTE: lock pins torch==2.14.1 PyPI wheel (CUDA 13 runtime). CUDA 13 needs a Linux driver >= 580 and compute capability >= 7.5 (T4 ok; P100 = 6.0 not supported). Measured driver: 580.178.04
+== internet: HTTP/2 200 | HTTP/2 200
+{
+  "description": "Lucene index of Wikipedia with DPR 100-word splits",
+  "filename": "lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz",
+  "readme": "index-wikipedia-dpr-20210120-d1b9e6-readme.txt",
+  "urls": [
+    "https://rgw.cs.uwaterloo.ca/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.tar.gz"
+  ],
+  "md5": "7b58c08da992b2ea7e96667f0b176651",
+  "size compressed (bytes)": 9177917732,
+  "total_terms": 1512973270,
+  "documents": 21015324,
+  "unique_terms": 5345463,
+  "downloaded": false
+}
+HEAD 200 Content-Length: 9177917732

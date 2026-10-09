@@ -1,0 +1,9 @@
+# Shared by laptop (CPU) and GPU machine. Exact pins come from the compiled .txt locks.
+torch==2.14.1
+transformers==5.18.0
+accelerate==1.15.0
+datasets==5.0.1
+huggingface_hub==1.33.0
+numpy==2.4.6
+pyyaml==6.0.3
+pytest==9.1.1

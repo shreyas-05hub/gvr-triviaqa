@@ -1,0 +1,42 @@
+{
+  "system_qa": {
+    "file": "prompts/system_qa_v1.txt",
+    "sha256": "890788af6ef9c7d3f83466f64f7c81f96bc4a23d236f663c6c44ee725d01ee46"
+  },
+  "user_qa": {
+    "file": "prompts/user_qa_v2.txt",
+    "sha256": "1b40dc6a403320fe01b73ccae9e42adb53c82dfeb98cd8152cb3ae70cb10f379"
+  },
+  "system_rag": {
+    "file": "prompts/system_rag_v1.txt",
+    "sha256": "2ead768ebc16b5c2baa06e6d7d33377ea674aa5572bb1231d34dff426462ccb6"
+  },
+  "user_rag": {
+    "file": "prompts/user_rag_v2.txt",
+    "sha256": "02c55a2fc52d2fd2a940aca218d8fbce060cb44608f0044388a8f8f79fb08535"
+  },
+  "passage": {
+    "file": "prompts/passage_v1.txt",
+    "sha256": "551d4fe0a4836504514da3dfae6e2cda8fdbb73b14dd5d5d6c5b7e4e3a862991"
+  },
+  "system_cove_plan": {
+    "file": "prompts/system_cove_plan_v1.txt",
+    "sha256": "d8b3eb6e2c1114980b9b1402a4a6b9dd80caec795fa2a41851641421649190c3"
+  },
+  "user_cove_plan": {
+    "file": "prompts/user_cove_plan_v1.txt",
+    "sha256": "69cfdccb65888c3774247160c0ece34e6666d4a35c99d8195b07946d9223e975"
+  },
+  "user_cove_revise": {
+    "file": "prompts/user_cove_revise_v2.txt",
+    "sha256": "ca2636fc1d6f9aaa37e8a42b13683fb3f4eff41d359560a1979a23c00a7bb7fd"
+  },
+  "judge": {
+    "file": "prompts/judge_v1.txt",
+    "sha256": "801e7d5565b3a548146ec6b021a3c2495cf34c6f2d336478e416495be4dd7d2d"
+  },
+  "judge_v2": {
+    "file": "prompts/judge_v2.txt",
+    "sha256": "e0d1b2603c2e0d9ed0c2227c70d818581a71563330e7fe3111bc99054eeceaa5"
+  }
+}

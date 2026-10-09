@@ -1,0 +1,41 @@
+{
+  "name": "wikipedia-dpr-100w",
+  "index_dir": "/root/.cache/pyserini/indexes/lucene-index.wikipedia-dpr-100w.20210120.d1b9e6.7b58c08da992b2ea7e96667f0b176651",
+  "registry_md5": "7b58c08da992b2ea7e96667f0b176651",
+  "registry_documents": 21015324,
+  "num_docs": 21015324,
+  "lucene_commit_version": "8.3.0",
+  "lucene_min_segment_version": "8.3.0",
+  "is_lucene_inverted_index": true,
+  "searcher_class": "LuceneSearcher",
+  "analyzer": "io.anserini.analysis.DefaultEnglishAnalyzer (via get_analyzer)",
+  "similarity_readback": "BM25(k1=0.9,b=0.4) (via get_similarity)",
+  "k1": 0.9,
+  "b": 0.4,
+  "k": 5,
+  "pyserini_cache": "/root/.cache/pyserini",
+  "build_tag": "20210120.d1b9e6",
+  "registry_size_compressed_bytes": 9177917732,
+  "archive_left_behind": [],
+  "smoke_test": {
+    "n_queries": 10,
+    "hits_per_query": 5,
+    "k1": 0.9,
+    "b": 0.4,
+    "passed": true,
+    "latency_s": [
+      0.2882366180419922,
+      0.21983981132507324,
+      0.11623096466064453,
+      0.05449652671813965,
+      0.05040597915649414,
+      0.22021746635437012,
+      0.12278342247009277,
+      0.02070331573486328,
+      0.06734943389892578,
+      0.022547006607055664
+    ]
+  },
+  "bm25_ok": true,
+  "provenance": "diag_bm25 run 2026-10-06; mounted dataset v6 (pre-guard stage4 code: no OpenAI guard, combined download+extract+load timing)"
+}

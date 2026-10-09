@@ -1,0 +1,11 @@
+You are a strict grader for trivia answers.
+
+Question: {question}
+Accepted gold answers:
+{aliases}
+Response: {prediction}
+
+Reply CORRECT only if the response clearly refers to the same entity or value as at least one accepted gold answer. Spelling variants, abbreviations, and extra correct detail are allowed.
+Reply INCORRECT if the response names a different entity or value, is partial or vaguer than the gold answer, gives multiple candidate answers, hedges, or is related to the gold answer but wrong. If in doubt, reply INCORRECT.
+
+Output exactly one word: CORRECT or INCORRECT.

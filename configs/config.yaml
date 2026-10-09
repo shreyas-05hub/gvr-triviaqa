@@ -1,0 +1,267 @@
+# Single source of truth for every protocol parameter. No hidden defaults:
+# code reads values from here and fails if a key is missing.
+project: "Gating Self-Verification or Retrieval? A Cost-Accounted Comparison on Short-Form Factual QA with Open-Weight LLMs"
+phase: engineering_pilot   # descriptive only; no scientific conclusions
+
+dataset:
+  repo_id: mandarjoshi/trivia_qa
+  config: unfiltered.nocontext
+  revision: 0f7faf33a3908546c6fd5b73a660e0f8ff173c2f   # resolved 2026-10-02 via HfApi.dataset_info
+  train_file: unfiltered.nocontext/train-00000-of-00001.parquet
+  locked_files:            # touching these requires test_unlocked=true
+    - unfiltered.nocontext/validation-00000-of-00001.parquet
+    - unfiltered.nocontext/test-00000-of-00001.parquet
+  test_source_split: validation   # final test IDs are sampled from validation (seed_c), later
+
+sampling:
+  rng: numpy.random.Generator(PCG64(seed)).choice(sorted_ids, n, replace=False)
+  seed_a_pilot: 20261001     # CONFIRMED by user 2026-10-02
+  seed_b_calib: 20261002     # CONFIRMED by user 2026-10-02
+  seed_c_test: 20261003      # CONFIRMED by user 2026-10-02; used only after unlock
+  n_pilot: 60
+  n_calib: 500
+  calib_drawn_from: train minus pilot ids
+
+model:
+  id: Qwen/Qwen2.5-7B-Instruct
+  revision: a09a35458c702b33eeacc393d103063234e8bc28   # resolved 2026-10-02 via HfApi.model_info (15.24 GB BF16 repo)
+  precision:
+    name: nf4-dq-fp16
+    load_in_4bit: true
+    bnb_4bit_quant_type: nf4
+    bnb_4bit_use_double_quant: true
+    bnb_4bit_compute_dtype: float16
+  logsoftmax_dtype: float32
+  batch_size: 1
+  fixture:                   # test-only (protocol amendment 3); never produces reported numbers
+    id: Qwen/Qwen2.5-0.5B-Instruct
+    revision: 7ae557604adf67be50417f59c2c2f167def9a775
+    device: cpu
+    dtype: float32
+
+generation:
+  do_sample: false
+  repetition_penalty: 1.0
+  temperature: null
+  top_p: null
+  top_k: null
+  eos_token_id: [151645, 151643]
+  pad_token_id: 151643
+  return_dict_in_generate: true
+  output_logits: true
+  max_new_tokens:
+    answer: 32
+    cove_plan: 128
+    cove_verify: 32
+    cove_revise: 32
+
+parser:
+  version: "1.1"            # 2026-10-07 PI decision: keep a closing ) or ] that balances an opening bracket (pilot/judge-dev logged with 1.0)
+  interpretations:           # accepted by user 2026-10-02
+    trailing_punctuation: "string.punctuation (plus whitespace) stripped from the end of the answer"
+    plan_list_markers: "leading '1.', '1)', '1:', '-', '*', '•' removed from each plan line"
+  strip_prefix_regex: "^\\s*answer\\s*:\\s*"   # case-insensitive
+  max_words: 10
+
+uncertainty:
+  excluded_token_ids: [151645, 151643]
+  definition: "u = -mean(log_softmax(logits[i].float())[tok_i]) over generated tokens not in excluded ids"
+
+retrieval:
+  library: pyserini
+  pyserini_version: "1.6.0"
+  java_version_required: 21
+  searcher: LuceneSearcher
+  prebuilt_index: wikipedia-dpr-100w
+  k1: 0.9
+  b: 0.4
+  k: 5
+  query: raw_question_text
+  rag_max_input_tokens: 2048
+  truncation: "truncate passage text from last passage backwards"
+  recall_text: "answer-string recall@5 computed over passage text EXCLUDING the title line (accepted 2026-10-02)"
+  index_download:
+    location: "PYSERINI_CACHE=/root/.cache/pyserini (user decision after audit)"
+    build_tag: 20210120.d1b9e6
+    documents: 21015324
+    expected_md5: 7b58c08da992b2ea7e96667f0b176651
+    compressed_bytes: 9177917732
+    preflight_min_free_factor: 2.2   # free >= 2.2 x compressed, else STOP (never change retriever)
+    archive_deleted_after_extract: true   # done by pyserini.util.download_and_unpack_index
+
+cove:
+  n_verification_questions: 3
+  paraphrase_jaccard_flag: 0.7
+
+scoring:
+  primary_metric: EM          # judge_rule_v2 fallback (2026-10-07); token F1 secondary
+  em_gold_set: official      # NormalizedAliases (+HumanAnswers, none in HF), normalize_answer on both sides
+  em_gold_set_spec_correction: "2026-10-07T16:59:30.804417+00:00: Stage 7 intended official EM; previous definition unioned normalize(aliases) and did not re-normalize; 7/87,622 train items differ, 0/478 dev EM changes"
+  secondary_metrics: [token_F1]
+  abstain_list: ["unknown", "i don't know", "i do not know", "not sure", "cannot answer"]
+  extra_punct: ["‘", "’", "´", "`"]
+  judge:
+    candidates: [mistralai/Mistral-7B-Instruct-v0.3, meta-llama/Llama-3.1-8B-Instruct, google/gemma-2-9b-it]
+    enabled_in_main_study: false   # judge REJECTED (judge_v1 case 2; judge_rule_v2 candidate A failed; B declined) -> EM-only
+    model_id: mistralai/Mistral-7B-Instruct-v0.3   # chosen by user 2026-10-02 (Apache-2.0); kept for appendix only
+    revision: c170c708c41dac9275d15a8fff4eca08d52bab71
+    allow_patterns: ["model-*.safetensors", "model.safetensors.index.json", "*.json", "tokenizer*"]  # shards only, not consolidated.safetensors
+    precision: nf4-dq-fp16   # same NF4 config, separate session after Qwen unloaded
+    max_new_tokens: 5
+    parse: "first whitespace-separated word, case-insensitive, trailing punctuation stripped; else judge_unparsed=True"
+    unparsed_scoring: "judge_correct=False (final=EM=0); CONFIRMED by user 2026-10-02; counted per arm; never excluded from denominators"
+    alias_list: full
+    on_context_overflow: STOP
+    labels: [CORRECT, INCORRECT]
+
+gate:
+  quantile: 0.60
+  quantile_method: higher
+  comparison: strict_gt
+  invalid_policy: forced_mitigation
+
+random_gate:
+  seeds: [0, 999]            # inclusive range
+  rng: PCG64
+
+reproducibility:
+  determinism_e0_items: 20
+  determinism_e1_e3_items: 10
+  u_tolerance: 1.0e-3
+  rescore_tolerance: 1.0e-3
+  max_retries_per_call: 1
+  warmup_calls_excluded: 3
+
+environment_decisions:       # accepted by user 2026-10-02
+  python: "3.11"
+  pyserini: "1.6.0 (newest supporting 3.11; 2.x requires >=3.12)"
+  java: "21 (required by pyserini 1.6.0 / Anserini)"
+  torch: "2.14.1 PyPI CUDA-13 wheel; CONFIRMED after Kaggle audit (driver 580.178.04, CUDA 13.0, T4 cc 7.5)"
+  gpu: "Kaggle T4 only (not P100); ONE GPU: CUDA_VISIBLE_DEVICES=0 for all Qwen and judge runs"
+  python_install: "uv-managed 3.11 venv from env/requirements-gpu.lock.txt; Kaggle preinstalled torch/transformers/datasets NOT used"
+  java_home: "OpenJDK 21.0.12 (apt openjdk-21-jdk-headless); JAVA_HOME recorded in env_manifest"
+  storage:
+    pyserini_cache: /root/.cache/pyserini      # ephemeral; re-download per session
+    hf_home: /root/.cache/huggingface          # ephemeral
+    persist: /kaggle/working                   # ONLY runs/ (logs), configs/ (manifests, gate.json), reports/
+  setup_timing: "downloads/extraction/installs timed as setup in runs/setup_timing.jsonl; excluded from per-item cost/latency"
+  session_batching: "E3/BM25 work in as few sessions as possible; Qwen arms and judge in separate sessions"
+
+go_no_go:                    # CONFIRMED by user 2026-10-02 as written in protocol
+  max_invalid_rate_per_arm: 0.05
+  max_unrecovered_failures: 0
+  max_retried_rate: 0.02
+  min_judge_agreement: 0.90
+  gpu_hour_budget_pilot: 8   # Kaggle GPU-hours, Stages 3-6, 11, 12 incl. setup; projection above -> STOP
+
+u_decision_rule:            # recorded 2026-10-05T18:45:31.460628+00:00 BEFORE diagnostic results were reviewed
+  sha256: b9d6e578222a182ff1ab3828d3d44254a19e7af66387ff729a2ed00e0ff9fdd4
+  text: |
+    u_decision_rule (pre-registered by user; recorded before diagnostic results were reviewed):
+    1. If generate-path u is reproducible run-to-run (|du| < 1e-6 on all 5 items, identical generated tokens) -> KEEP generate-path u as the primary score. The teacher-forced cross-path gap is reported as a measured numerical property (NF4/fp16 kernel difference), and the pre-registered re-score check is replaced by: alignment checks (length, argmax, EOS) + same-path reproducibility. Documented as a protocol clarification made before any calibration/test data.
+    2. If generate-path u is NOT reproducible run-to-run, but teacher-forced u is (|du| < 1e-6) -> AMEND to teacher-forced u (single forward pass after generation, batch size 1, fp32 log_softmax) for all arms and the gate. Documented as a pre-registered amendment before calibration.
+    3. If neither path is reproducible -> STOP; no determinism test or pilot. Report and wait.
+  evaluation_inputs: runs/diag/rescore_diag.json (gen1_vs_gen2, tf1_vs_tf2, tokens_equal.gen1_gen2)
+  threshold_abs_du: 1.0e-6
+  status: CASE_1_APPLIED   # evaluated 2026-10-06T14:59:00.475519+00:00 from runs/diag/rescore_diag.json (Kaggle, dataset v8)
+  outcome: "generate-path u KEPT as primary score (gen1 vs gen2 |du| = 0 on 5/5, identical tokens 5/5; tf1 vs tf2 |du| = 0 on 5/5)"
+  protocol_clarification: "pre-registered teacher-forced re-score check (|du|<1e-3) REPLACED by: alignment checks (logits length, greedy argmax, EOS exclusion) + same-path reproducibility (|du|<1e-6, identical tokens). Made before any calibration/test data."
+  measured_cross_path_gap: "gen vs teacher-forced |du| 3.7e-3..3.9e-2 (max per-token |dlogprob| 7.4e-3..6.9e-2); generate(use_cache=False) vs teacher-forced |du| 0..1.6e-4 -> gap attributable to the KV-cache incremental decode path under NF4/fp16. Reported as a numerical property, not used for scoring."
+
+bm25_index_acceptance:       # user decision 2026-10-06
+  status: PROVISIONALLY_PASSED
+  basis: "configs/index_record.json from diag_bm25 run (mounted dataset v6, pre-guard stage4 code): md5 7b58c08d..., 21,015,324 docs, Lucene 8.3.0, DefaultEnglishAnalyzer, BM25(k1=0.9,b=0.4) read back once, 5/5 hits on 10 pilot queries"
+  must_record_in_next_index_session:   # next session that loads the index (determinism/pilot); any failure -> STOP
+    - openai_guard_call_log_empty
+    - per_query_k1_b_readback
+    - separate_download_extract_load_timings
+
+judge_decision_rule:        # recorded 2026-10-06T16:02:40.718597+00:00 BEFORE hand labels were submitted
+  sha256: 2c03aa8a624b73143329cad19868330763e588a584c182563969192fa6736394
+  text: |
+    judge_decision_rule (pre-registered by user; recorded BEFORE hand labels were submitted):
+    Agreement = judge verdict vs user label, on rows marked CORRECT/INCORRECT (UNSURE reported separately, excluded from agreement).
+    1. If agreement >= 90% -> judge accepted; freeze judge_v1.
+    2. If agreement < 90% -> judge REJECTED as-is. Do not tweak the judge prompt on these same 105 pilot rows. Instead report: agreement, judge false-accept and false-reject counts, and EM-vs-user-labels agreement. Then STOP and wait; user chooses between (a) a revised judge prompt validated on a FRESH hand-labelled set drawn from calibration-split items not used for tau, (b) a different judge model, or (c) EM as the primary metric with the hand-labelled subset as a reported validity check.
+    Labels are not used to tune anything else. Calibration and test remain blocked.
+  labels_file: reports/judge_handlabel_blind_pilot-01_LABELED.csv
+  verdicts_file: runs/pilot-01/judge.jsonl
+  n_rows: 105
+  threshold_agreement: 0.90
+  label_values: [CORRECT, INCORRECT, UNSURE]
+  status: CASE_2_JUDGE_REJECTED   # evaluated 2026-10-06T16:36:24.593052+00:00; runs/pilot-01/judge_decision.json
+  outcome: "agreement 36.3% (37/102; UNSURE 3 excluded) < 90% -> judge_v1 + Mistral-7B REJECTED as-is; 65 false accepts, 0 false rejects. Awaiting user choice (a)/(b)/(c). judge_v1 NOT frozen, NOT edited."
+
+judge_rule_v2:              # recorded 2026-10-06T16:59:29.456482+00:00 BEFORE any new labels or judge runs
+  sha256: 8823ad4c638c2a60c529f9a2b8999b3e1ccf6e04dc79e09590f89de871d3a1aa
+  text: |
+    judge_rule_v2 (pre-registered by user after judge_v1 Case 2; recorded BEFORE any new labels or judge runs):
+    primary_metric: EM (official TriviaQA normalize_answer, alias match). Fixed regardless of judge outcome.
+    judge_role: secondary metric only, adopted only if it passes acceptance below.
+    candidates (fixed order, max 2 attempts, no further iteration):
+      A) mistralai/Mistral-7B-Instruct-v0.3 @ c170c708c41dac9275d15a8fff4eca08d52bab71, new prompt judge_v2
+      B) only if A fails: one different open-weight instruct model, proposed to the user (licence, revision hash, NF4 T4 memory estimate); not downloaded until the user approves
+    acceptance on judge-dev set vs human labels (UNSURE excluded, count reported): overall agreement >= 90%, false-accept rate <= 5% (of human-INCORRECT), per-arm agreement >= 85%. Fail -> EM-only fallback; hand-labelled subsets reported as EM validity check.
+    judge-dev set: 100 NEW TriviaQA unfiltered.nocontext TRAIN IDs, seed 20261004, disjoint from pilot(60) and calibration(500); validation split untouched (test_unlocked: false).
+    The 105 pilot rows are used ONLY to check judge_v2 output-format parsing (parse rate); agreement on them is not reported or used for any decision.
+    blind CSV: all valid, non-abstain, EM=0 outputs of E0/E1/E3 on judge-dev, plus 20 random EM=1 rows (EM false-positive sanity check), shuffled, arm hidden, gold aliases shown; shuffle and EM=1 sampling seed 20261004; row_id -> (item_id, arm, EM) key kept in a separate file.
+    labelled CSV sha256 recorded before any judge run on judge-dev.
+  primary_metric: EM
+  candidate_A: {model_id: mistralai/Mistral-7B-Instruct-v0.3, revision: c170c708c41dac9275d15a8fff4eca08d52bab71, prompt: judge_v2}
+  candidate_B: null            # proposed only if A fails; user approval required before download
+  acceptance: {overall_agreement_min: 0.90, false_accept_rate_max: 0.05, per_arm_agreement_min: 0.85}
+  judgedev: {n: 100, seed: 20261004, split: train, disjoint_from: [pilot_ids, calib_ids], blind_seed: 20261004, n_em1_sanity: 20}
+  status: JUDGE_REJECTED_FALLBACK_EM   # 2026-10-07T16:43:33.193348+00:00; reason: candidate A failed all criteria; candidate B declined by PI before any B run
+  previous_status: CANDIDATE_A_FAILED   # evaluated 2026-10-07T16:40:17.238320+00:00; runs/judgedev/judge_decision_v2.json sha256 79fb43d8767ade82569c8d5a4baa212fae967ddd4bb5d9ad874a819d8fd6af7c
+  outcome_A: "agreement 49.4% (83/168 FA; FA rate 61.0%; per-arm 47.6-53.7%) on primary labels 5b911ae0; all 3 criteria fail. Sensitivity (original labels f05aaa35): also FAIL (agreement 50.0%), no pass/fail disagreement. EM sanity: 0/20 EM=1 rows labelled INCORRECT. Candidate B NOT started (requires user approval of model)."
+
+em_validity_plan:           # recorded 2026-10-07T16:43:33.193348+00:00 BEFORE any calibration run
+  sha256: ab2c7b73b2444978b2e1aaeeb542475ef6eb3893ba7163edabeefb09ed980532
+  text: |
+    em_validity_plan (pre-registered by PI after judge_rule_v2 fallback; recorded BEFORE any calibration run):
+    1. Report EM (primary; official TriviaQA normalize_answer, alias match) and token F1 (secondary) for all arms (E0, E1, E3, E2, E4). No LLM judge in the study; judge code and dev results kept for the appendix only.
+    2. Dev EM audit (descriptive; train-split development data only, never test evidence): from existing human labels (pilot-01 final labels; judge-dev final labels 5b911ae0, sensitivity with judge-dev original labels f05aaa35). Per arm (E0, E1, E3): EM false-negative rate = human-CORRECT among labelled valid non-abstain EM=0 outputs / all such labelled outputs (UNSURE excluded from the denominator and counted), with Wilson 95% CIs; pooled and per source set. EM false-positive rate = human-INCORRECT among the 20 judge-dev EM=1 sanity rows, with Wilson 95% CI. Invalid or abstain EM=0 outputs are not labelled and are counted as not correct by definition (reported).
+    3. Main study: only after the test run is complete (never before), draw a stratified random sample of valid, non-abstain EM=0 outputs per arm E0, E1, E3 (E2/E4 outputs are copies of these): n = 50 per arm (all, if fewer than 50), numpy Generator(PCG64(20261005)) over sorted (item_id) per arm, arms sampled independently in order E0, E1, E3; shuffled with the same generator, arm hidden, gold aliases shown, for blind human labelling (CORRECT/INCORRECT/UNSURE). Report per-arm EM false-negative rates with Wilson 95% CIs, and a sensitivity analysis with human-adjusted accuracy: acc_adj(arm) = EM_acc(arm) + FN_rate(arm) * P(valid, non-abstain, EM=0 | arm), with the interval from the Wilson bounds; E2/E4 adjusted via their constituent outputs (E0 for unmitigated items, E1/E3 for mitigated items). Primary McNemar test on EM is unchanged.
+    4. Pre-stated EM-bias flag: E2 and E4 share E0 and differ in their mitigation arms (E1 vs E3). If the main-study per-arm EM false-negative point estimates of E1 and E3 differ by more than 10 percentage points, the paper explicitly flags EM-bias risk on the primary E2-vs-E4 comparison. The composed E2/E4 FN estimates are also reported.
+  main_study_sample: {n_per_arm: 50, arms: [E0, E1, E3], seed: 20261005, frame: valid_nonabstain_em0}
+  em_bias_flag_threshold_pp: 10
+  status: PREREGISTERED
+
+format_compliance_rule_v1_superseded:     # recorded 2026-10-07T16:56:08.486537+00:00 BEFORE the v2 format-compliance run
+  sha256: 5b7e413bec8840e8060e9b368e6fa9c525506fcd336fb9a505b68639418556dc
+  text: |
+    format_compliance_rule (pre-registered by PI 2026-10-07; recorded BEFORE the v2 format-compliance run):
+    Run: the 60 PILOT items, E0/E1/E3, prompts v2 (user_qa_v2, user_rag_v2, user_cove_revise_v2), all other settings unchanged (decoding, k, passages, NF4, single T4). Baseline: pilot-01 (prompts v1). Both runs parsed with parser 1.1.
+    Reported per arm, v1 vs v2, ONLY: answer-length profile (words mean/median/p90/max; model tokens excl. EOS), % answers > 5 words, % full sentences (>=5 words AND (first line ends '.' OR finite-verb keyword)), parse/invalid rate, E1 plan-invalid rate, paraphrase flags (Jaccard >= 0.7). NOT computed or reported on this run: EM, accuracy, F1, any gold-based category.
+    Acceptance (per arm E0, E1, E3, on the v2 run): % > 5 words <= 1% AND % full sentence <= 1% AND invalid rate (v2) <= invalid rate (v1). If met -> PI reviews prompts for freeze. If not -> stop and report.
+  thresholds: {max_pct_gt5_words: 0.01, max_pct_full_sentence: 0.01, invalid_not_worse_than_v1: true}
+  baseline_run: pilot-01
+  v2_run: pilot-02-v2
+  status: SUPERSEDED   # by format_compliance_rule v2 at 2026-10-07T17:05:18.638310+00:00
+
+format_compliance_rule:     # v2, amended 2026-10-07T17:05:18.638310+00:00 BEFORE any format_check result was viewed
+  sha256: 48fde62988a8e735fd8a2e437dbe9568fa57a6c19b566325a34d440a3987965c
+  text: |
+    format_compliance_rule v2 (amended by PI 2026-10-07 BEFORE any format_check result was viewed; supersedes v1 sha 5b7e413bec8840e8060e9b368e6fa9c525506fcd336fb9a505b68639418556dc):
+    Run: the 60 PILOT items, E0/E1/E3, prompts v2 (user_qa_v2, user_rag_v2, user_cove_revise_v2), all other settings unchanged (decoding, k, passages, NF4, single T4). Baseline: pilot-01 (prompts v1). Both runs parsed with parser 1.1.
+    Reported per arm, v1 vs v2, ONLY: answer-length profile (words mean/median/p90/max; model tokens excl. EOS), % answers > 5 words, % full sentences (>=5 words AND (first line ends '.' OR finite-verb keyword)), parse/invalid rate, E1 plan-invalid rate, paraphrase flags (Jaccard >= 0.7). NOT computed or reported on this run: EM, accuracy, F1, any gold-based category.
+    Acceptance (per arm E0, E1, E3, on the v2 run): % > 5 words <= 2% AND % full sentence <= 2% (i.e., at most 1 of 60 items each) AND invalid rate (v2) <= invalid rate (v1). If met -> PI reviews prompts for freeze. If not -> stop and report.
+    Reason for amendment: with n = 60 per arm, "<= 1%" means zero items, stricter than intended.
+  thresholds: {max_pct_gt5_words: 0.02, max_pct_full_sentence: 0.02, invalid_not_worse_than_v1: true}
+  baseline_run: pilot-01
+  v2_run: pilot-02-v2
+  supersedes_sha256: 5b7e413bec8840e8060e9b368e6fa9c525506fcd336fb9a505b68639418556dc
+  status: PASSED   # evaluated 2026-10-07T17:24:14.681230+00:00; runs/format_compliance_v1_v2.json sha256 e5e5093421c2903b57c95570e67864027627e20d826e77a25ba0e2b0be7328e0; all criteria met for E0, E1, E3
+
+test_execution_rule:        # recorded 2026-10-07T17:47:23.568495+00:00 BEFORE any test run
+  sha256: 948908fd51f5591ec8b498ef7dadd604ed24b72730b102d2707a201f9202f491
+  text: |
+    test_execution_rule (pre-registered by PI 2026-10-07; recorded BEFORE any test run):
+    1. Test set: data/test_ids.json (3,000 validation IDs, seed 20261003, sha a792e0d7...), fixed draw order; chunks c1 = [0,1000), c2 = [1000,2000), c3 = [2000,3000); run-ids test-c1, test-c2, test-c3.
+    2. Per item in order: E0, then E1 (consumes that item's LOGGED E0 answer), then E3; frozen prompts, final gate, NF4, single T4, batch size 1; BM25 guarded load + smoke regression (titles vs reference, k1/b read-back, empty OpenAI-guard log) before each session's arms; no judge.
+    3. Resumable and idempotent: append-only calls.jsonl; unit (item, arm) done iff units.jsonl marker; on resume done units are skipped, calls of incomplete units are listed in superseded.jsonl and the unit is rerun; at most one retry per call as before.
+    4. Abort before any download/model load if: test_unlocked is not true; no LOCKED test_lock; any frozen-prompt, gate.json, config.yaml, test_ids or model-revision hash differs from the test_lock recorded immediately before the first chunk push; gate provisional; dataset mount version != expected.
+    5. No EM, accuracy, F1 or any gold access is computed or viewed until all 3 chunks are complete and scripts/test_completeness.py passes (3,000 items x 3 arms). Between chunks only completion counts, error/retry counts and invalid counts are reported. Enforced in code: load_gold refuses non-train splits until test_completeness.passed is true.
+    6. After completion: analysis per protocol (EM primary, F1 secondary, McNemar E2 vs E4 primary; secondary comparisons; random gate) and the em_validity_plan item 3 human sample.
+  chunks: {c1: [0, 1000], c2: [1000, 2000], c3: [2000, 3000]}
+  status: PREREGISTERED

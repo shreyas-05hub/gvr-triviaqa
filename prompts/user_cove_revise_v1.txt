@@ -1,0 +1,8 @@
+Question: {question}
+Proposed answer: {answer}
+
+Verification questions and answers:
+{qa_pairs}
+
+Using the verification answers to check the proposed answer, give the final answer to the original question. Reply with only the answer: a short name, number, date or phrase.
+Answer:

@@ -1,0 +1,57 @@
+{
+  "role": "kaggle-gpu",
+  "kaggle_dataset": {
+    "dataset": "shreyas572/gvr-repo",
+    "version": 4,
+    "note": "written before upload; verified == current_version_number after upload"
+  },
+  "kaggle_audit_stage0": {
+    "file": "configs/kaggle_audit_stage0.txt",
+    "sha256": "36f99d14841c2b3ce71d2ec47c0458cd955bd6cc79784676ead56e3230a3ff32",
+    "kind": "re-run captured by runner env stage"
+  },
+  "timestamp": "2026-10-05T18:21:11.898948+00:00",
+  "hardware": {
+    "platform": "Linux-6.18.48+-x86_64-with-glibc2.39",
+    "python": "3.11.16",
+    "cpu": "x86_64",
+    "disk_free_gb": 1141.5,
+    "ram_gb": 32.9,
+    "torch_cuda_build": "13.0",
+    "cuda_available": true,
+    "gpus": [
+      {
+        "name": "Tesla T4",
+        "vram_gb": 15.64,
+        "capability": [
+          7,
+          5
+        ]
+      }
+    ],
+    "nvidia_smi": "Tesla T4, 580.178.04, 15360 MiB\nTesla T4, 580.178.04, 15360 MiB",
+    "java": "openjdk version \"21.0.12\" 2026-07-21\nOpenJDK Runtime Environment (build 21.0.12+8-1-24.04-Ubuntu)\nOpenJDK 64-Bit Server VM (build 21.0.12+8-1-24.04-Ubuntu, mixed mode, sharing)",
+    "JAVA_HOME": "/usr/lib/jvm/java-21-openjdk-amd64",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "PYSERINI_CACHE": "/root/.cache/pyserini",
+    "HF_HOME": "/root/.cache/huggingface"
+  },
+  "packages": {
+    "torch": "2.14.1",
+    "transformers": "5.18.0",
+    "accelerate": "1.15.0",
+    "bitsandbytes": "0.50.2",
+    "datasets": "5.0.1",
+    "huggingface_hub": "1.33.0",
+    "pyserini": "1.6.0",
+    "pyjnius": "1.7.0",
+    "faiss-cpu": null,
+    "faiss-gpu": null,
+    "numpy": "2.4.6",
+    "pyyaml": "6.0.3",
+    "pyarrow": "25.0.1",
+    "tokenizers": "0.23.2",
+    "safetensors": "0.8.0",
+    "pytest": "9.1.1"
+  }
+}

@@ -1,0 +1,9 @@
+You are grading an answer to a trivia question.
+
+Question: {question}
+Accepted gold answers:
+{aliases}
+Predicted answer: {prediction}
+
+Reply CORRECT if the predicted answer refers to the same entity or value as at least one accepted gold answer, ignoring differences in capitalization, punctuation, spelling variants, or extra descriptive words. Reply INCORRECT if it names a different entity or value, is less specific than the gold answer in a way that could refer to something else, or gives several different answers.
+Reply with exactly one word: CORRECT or INCORRECT.

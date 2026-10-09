@@ -1,0 +1,93 @@
+{
+  "provenance": "titles parsed from runner_log.txt of diag_bm25 run (dataset v6 stage4, 2026-10-06); passage IDs were not recorded in that run",
+  "source_log_sha256": "ed313e53c4c890891543b139f41b166b5b722ce4fb5fe4d156aa1eb3b944b71f",
+  "index_md5": "7b58c08da992b2ea7e96667f0b176651",
+  "k1": 0.9,
+  "b": 0.4,
+  "k": 5,
+  "query": "raw question text",
+  "item_order": [
+    "bb_2875",
+    "bb_5999",
+    "bb_9504",
+    "bt_2716",
+    "bt_3263",
+    "bt_3489",
+    "dpql_2630",
+    "dpql_4361",
+    "dpql_4737",
+    "dpql_602"
+  ],
+  "top5_titles": {
+    "bb_2875": [
+      "Emulsion",
+      "Emulsion",
+      "Continuous distillation",
+      "Homogenization (chemistry)",
+      "Liquid"
+    ],
+    "bb_5999": [
+      "Ig Nobel Prize",
+      "Ig Nobel Prize",
+      "Nobel Prize controversies",
+      "Ig Nobel Prize",
+      "Ig Nobel Prize"
+    ],
+    "bb_9504": [
+      "1994 FIFA World Cup",
+      "1994 FIFA World Cup Final",
+      "Penalty shoot-out (association football)",
+      "1982 FIFA World Cup",
+      "1982 FIFA World Cup"
+    ],
+    "bt_2716": [
+      "M11 motorway",
+      "M11 motorway",
+      "M11 motorway",
+      "Bishop's Stortford",
+      "M11 motorway"
+    ],
+    "bt_3263": [
+      "Somethin' Smith and the Redheads",
+      "Somethin' Smith and the Redheads",
+      "Somethin' for the People",
+      "Somethin' Else (The Kingston Trio album)",
+      "Somethin' Else (The Kingston Trio album)"
+    ],
+    "bt_3489": [
+      "Terrestrial locomotion",
+      "Arabian horse",
+      "Camel",
+      "Camel milk",
+      "Namib Desert Horse"
+    ],
+    "dpql_2630": [
+      "History of Celtic F.C. (1994–present)",
+      "2010 Celtic League Grand Final",
+      "Harry Cochrane",
+      "Glasgow",
+      "Brendan Rodgers"
+    ],
+    "dpql_4361": [
+      "Ivy League",
+      "Ivy League",
+      "Columbia Lions",
+      "Columbia Lions",
+      "Yale Rugby"
+    ],
+    "dpql_4737": [
+      "Pinniped",
+      "Pinniped",
+      "Pinniped",
+      "Pinniped",
+      "Biodiversity of Albania"
+    ],
+    "dpql_602": [
+      "Abraham Houblon",
+      "John Houblon",
+      "John Houblon",
+      "Abraham Houblon",
+      "Thomas Archer Houblon"
+    ]
+  }
+}

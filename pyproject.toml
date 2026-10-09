@@ -1,0 +1,12 @@
+[project]
+name = "gvr"
+version = "0.1.0"
+requires-python = "==3.11.*"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+markers = ["fixture: needs the Qwen2.5-0.5B CPU test fixture (downloads ~1 GB)"]

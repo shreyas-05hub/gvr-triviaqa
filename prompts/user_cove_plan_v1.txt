@@ -1,0 +1,4 @@
+Question: {question}
+Proposed answer: {answer}
+
+Write exactly 3 short verification questions that would check whether the proposed answer is correct. Each question must be answerable on its own and must ask about a specific fact, not simply repeat the original question. Output one question per line and nothing else.

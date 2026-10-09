@@ -1,0 +1,16 @@
+{
+  "runs": [
+    {
+      "run_id": "calib-01",
+      "ids_file": "data/calib_ids.json",
+      "arms": [
+        "E0"
+      ],
+      "dataset_version": 18,
+      "kernel_version": 17,
+      "completed_utc": "2026-10-07T17:40:31.816517+00:00",
+      "calls_sha256": "2e382011814e004c6e6ac7759760dbeb9a69709afa28b0734393e6e769cd0b88"
+    }
+  ],
+  "policy": "calib-01 is the one and only calibration run; any rerun requires PI approval and is logged here"
+}

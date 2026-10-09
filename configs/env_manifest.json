@@ -1,0 +1,47 @@
+{
+  "role": "laptop-cpu",
+  "kaggle_dataset": {
+    "dataset": "shreyas572/gvr-repo",
+    "version": 18,
+    "note": "written before upload; verified == current_version_number after upload"
+  },
+  "kaggle_audit_stage0": {
+    "file": "configs/kaggle_audit_stage0.txt",
+    "sha256": "36f99d14841c2b3ce71d2ec47c0458cd955bd6cc79784676ead56e3230a3ff32",
+    "kind": "re-run captured by runner env stage"
+  },
+  "timestamp": "2026-10-07T17:57:26.912123+00:00",
+  "hardware": {
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.11.16",
+    "cpu": "Model name:                              Intel(R) Core(TM) i3-7020U CPU @ 2.30GHz",
+    "disk_free_gb": 28.5,
+    "ram_gb": 11.6,
+    "torch_cuda_build": null,
+    "cuda_available": false,
+    "nvidia_smi": "unavailable: FileNotFoundError",
+    "java": "unavailable: FileNotFoundError",
+    "JAVA_HOME": null,
+    "CUDA_VISIBLE_DEVICES": null,
+    "PYSERINI_CACHE": null,
+    "HF_HOME": null
+  },
+  "packages": {
+    "torch": "2.14.1+cpu",
+    "transformers": "5.18.0",
+    "accelerate": "1.15.0",
+    "bitsandbytes": null,
+    "datasets": "5.0.1",
+    "huggingface_hub": "1.33.0",
+    "pyserini": null,
+    "pyjnius": null,
+    "faiss-cpu": null,
+    "faiss-gpu": null,
+    "numpy": "2.4.6",
+    "pyyaml": "6.0.3",
+    "pyarrow": "25.0.1",
+    "tokenizers": "0.23.2",
+    "safetensors": "0.8.0",
+    "pytest": "9.1.1"
+  }
+}
